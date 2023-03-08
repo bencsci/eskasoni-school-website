@@ -42,3 +42,10 @@ body {
   width: 25%;
   margin: auto;
 }
+
+img {
+  /* Note the width is expanded so the images display properly
+  within the grid */
+  width: 125%;
+  height: 100%;
+}
