@@ -6,7 +6,7 @@ Using em messes this up because em goes based on the font of the current element
 For example, if titleSize was 3em, and the hieght of the title div was 3rem, that's
 3 * the current font size, which makes the title div 9rem(!) high and destroys the 
 formatting of the page. tl;dr: KEEP THE VARIABLES IN REM*/
-  --titleSize: 3rem; /*The height size of the title div*/
+  --titleSize: 6rem; /*The height size of the title div*/
 }
 
 /* HTML tag based styles ***********************************/
@@ -17,7 +17,7 @@ body {
 
 /* id based styles *****************************************/
 #grid {
-  width: 41%;
+  width: 69%; /*the middle three rows take about 68*.6=41.4%*/
   margin: auto;
   position: relative;
   top: calc(var(--distanceFromTop) - var(--titleSize));
@@ -27,25 +27,44 @@ body {
 
 #volumeButton {
   display: inline;
+  width:  var(--titleSize);
+  height: var(--titleSize);
+  margin-top: 1rem;
+}
+
+#currWord {
+	display: inline;
+	font-size: calc(var(--titleSize) - 1rem);
+}
+
+#currWord:hover {
+	cursor: pointer;
+	color: magenta;
 }
 
 /* class based styles **************************************/
 .title {
-  width: 25%;
+  width: 35%;
   height: var(--titleSize);
   margin: auto;
   font-family: sans-serif;
   font-size: var(--titleSize);
+  display: flex;
+  justify-content: space-between;
+}
+
+.col-3 { /*TEST PURPOSES ONLY*/
+	background-color: purple;
 }
 
 .images {
-  width: 25%;
+  width: 35%;
   margin: auto;
 }
 
 img {
   /* Note the width is expanded so the images display properly
   within the grid */
-  width: 125%;
+  width: 110%;
   height: 100%;
 }
