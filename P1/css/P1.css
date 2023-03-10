@@ -27,19 +27,19 @@ body {
 
 #volumeButton {
   display: inline;
-  width:  var(--titleSize);
+  width: var(--titleSize);
   height: var(--titleSize);
   margin-top: 1rem;
 }
 
 #currWord {
-	display: inline;
-	font-size: calc(var(--titleSize) - 1rem);
+  display: inline;
+  font-size: calc(var(--titleSize) - 1rem);
 }
 
 #currWord:hover {
-	cursor: pointer;
-	color: magenta;
+  cursor: pointer;
+  color: magenta;
 }
 
 /* class based styles **************************************/
@@ -53,8 +53,9 @@ body {
   justify-content: space-between;
 }
 
-.col-3 { /*TEST PURPOSES ONLY*/
-	background-color: purple;
+.col-3 {
+  /*TEST PURPOSES ONLY*/
+  background-color: purple;
 }
 
 .images {
