@@ -17,7 +17,7 @@ body {
 
 /* id based styles *****************************************/
 #grid {
-  width: 69%; /*the middle three rows take about 68*.6=41.4%*/
+  width: 69%; /*the middle three rows take about 69*.6=41.4%. Nice*/
   margin: auto;
   position: relative;
   top: calc(var(--distanceFromTop) - var(--titleSize));
@@ -32,9 +32,16 @@ body {
   margin-top: 1rem;
 }
 
+#volumeButton:hover {
+  cursor: pointer;
+}
+
 #currWord {
-  display: inline;
+  display: block;
   font-size: calc(var(--titleSize) - 1rem);
+  position: relative;
+  left: calc(var(--titleSize) * -0.4); 
+  /*Centers it better in the presence of the volume button*/
 }
 
 #currWord:hover {
@@ -53,14 +60,27 @@ body {
   justify-content: space-between;
 }
 
-.col-3 {
-  /*TEST PURPOSES ONLY*/
-  background-color: purple;
+.infoText {
+  display: none;
+}
+
+.resultImage {
+  display: none;
 }
 
 .images {
   width: 35%;
   margin: auto;
+}
+
+.infoTextHolder {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center; /*center the text horizontally*/
+  position: relative; /*center the text vertically*/
+  top: calc(50% - 1.5rem);
+  left: 0.3rem;
+
 }
 
 img {

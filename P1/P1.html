@@ -23,78 +23,110 @@ Author:
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+	<!-- Add jQuery support (some functions in JS rely on it) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Make P1.css accessible to this file -->
     <link rel="stylesheet" href="./css/P1.css" />
     <!-- make the JavaScript file available to this file -->
     <script src="./scripts/P1.js"></script>
+    <audio src="TADA.mp3" preload="auto" id="winsound"></audio>
+    <audio src="melogoff.wav" preload="auto" id="losesound"></audio>
   </head>
 
   <body>
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
     <div class="title">
-        <img id="volumeButton" src="./vol.jpg">
-        Word     
+        <img id="volumeButton" src="./vol.jpg" onclick="playSound((Math.round(Math.random())))">
+        <p id="currWord">mnbvfacxz</p>
+        <div></div> <!-- Empty div for centering purposes. Do not delete -->
     </div>
      <div id="grid">
       <div class="container">
         <div class="row">
-          <div class="col-3"></div>
+          <div class="col-1"></div>
           <div class="col-2">
             <div class="imgs">
-              <img src="wiktm.jpg" />
+              <img src="./winstar.jpg" id="winstar1" class="resultImage">
+            </div>  
+          </div>
+          <div class="col-2">
+            <div class="imgs">
+              <img src="wiktm.jpg" id="wiktm">
             </div>
           </div>
           <div class="col-2">
             <div class="imgs">
-              <img src="teluisi.jpg" />
+              <img src="teluisi.jpg" id="teluisi">
             </div>
           </div>
           <div class="col-2">
             <div class="imgs">
-              <img src="nin.jpg" />
+              <img src="nin.jpg" id="nin">
             </div>
           </div>
-          <div class="col-3"></div>
+          <div class="col-2">
+             <img src="./loseflower.jpg" id="loseflower1" class="resultImage">
+          </div>
+          <div class="col-1"></div>
+        </div>
+        
+        <!-- Row 2 of the Grid -->
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-2">
+             <div class="infoTextHolder">
+                <p class="infoText" id="wintext">kelu'lk tela'tekn!</p>
+             </div>
+          </div>
+          <div class="col-2">
+            <div class="imgs">
+              <img src="mijisi.jpg" id="mijisi">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="imgs">
+              <img src="ltu.jpg" id="ltu">
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="imgs">
+              <img src="kil.jpg" id="kil">
+            </div>
+          </div>
+          <div class="col-2">
+             <div class="infoTextHolder">
+               <p class="infoText" id="losetext">tknu'kwalsi ap</p>
+             </div>
+          </div>
+          <div class="col-1"></div>
         </div>
 
         <div class="row">
-          <div class="col-3"></div>
+          <div class="col-1"></div>
           <div class="col-2">
             <div class="imgs">
-              <img src="mijisi.jpg" />
+              <img src="./winstar.jpg" id="winstar1" class="resultImage">
+            </div>  
+          </div>
+          <div class="col-2">
+            <div class="imgs">
+              <img src="kesalk.jpg" id="kesalk">
             </div>
           </div>
           <div class="col-2">
             <div class="imgs">
-              <img src="ltu.jpg" />
+              <img src="eliey.jpg" id="eliey">
             </div>
           </div>
           <div class="col-2">
             <div class="imgs">
-              <img src="kil.jpg" />
-            </div>
-          </div>
-          <div class="col-3"></div>
-        </div>
-
-        <div class="row">
-          <div class="col-3"></div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="kesalk.jpg" />
+              <img src="aqq.jpg" id="aqq">
             </div>
           </div>
           <div class="col-2">
-            <div class="imgs">
-              <img src="eliey.jpg" />
-            </div>
+             <img src="./loseflower.jpg" id="loseflower1" class="resultImage">
           </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="aqq.jpg" />
-            </div>
-          </div>
-          <div class="col-3"></div>
+          <div class="col-1"></div>
         </div>
       </div>
     </div>

@@ -1,16 +1,18 @@
-//The images representing miqmaq words
-const IMAGE_NAMES = ["aqq.jpg", "eliey.jpg",   "kesalk.jpg", 
-                     "kil.jpg", "ltu.jpg",     "mijisi.jpg", 
-                     "nin.jpg", "teluisi.jpg", "wiktm.jpg"] 
-const IMAGE_PATH = "./"
+//The images representing miqmaq words, as their HTML ids. 
+//If you need the file names, just append ".jpg" to any of them
+const IMAGE_IDS =   ["aqq", "eliey",   "kesalk", 
+                     "kil", "ltu",     "mijisi", 
+                     "nin", "teluisi", "wiktm"] 
 
 //global variables
 let correctAnswer,
-    decision;
+    decision, 
+    allowGuesses;
+    
 
 
 function startGame(){
-
+    allowGuesses = true
 }
 
 /**
@@ -23,10 +25,10 @@ function startGame(){
 function checkAnswer(decision){
     if(decision === correctAnswer){
         alert("I'm so proud");
-        show.(winStar)  //This will show the win stars on the left side of the grid
+        show(winStar)  //This will show the win stars on the left side of the grid
     } else {
         alert("WRONG")
-        show.(failFlower)  //This will show the flowers on the right side of the grid
+        show(failFlower)  //This will show the flowers on the right side of the grid
     }
 }
 
@@ -67,6 +69,7 @@ function drag(event) {
  * @param image The passed in image to be hidden.
  * 
  * Author: Caleb Bulmer
+ * Author: Baxter Madore: moved the code for showing images to a seperate function
  */
 function allowDrop(event, image) {
     event.preventDefault();
@@ -76,17 +79,9 @@ function allowDrop(event, image) {
     /* The idea here being that we could show every image before hiding
     a particular image. Can be expanded on once the grid seems to be
     good. */
-    $(aqq.jpg).show();
-    $(eliey.jpg).show();
-    $(kesalk.jpg).show();
-    $(kil.jpg).show();
-    $(ltu.jpg).show();
-    $(mijisi.jpg).show();
-    $(nin.jpg).show();
-    $(teluisi.jpg).show();
-    $(wiktm.jpg).show();
-    $(image).hide();
-}
+	showAllImages()
+    document.getElementById(image).style.opacity = 0
+	}
 
 /**
  * This function is what will happen when the dragged
@@ -103,3 +98,25 @@ function drop(event) {
     let data = event.dataTransfer.getData("text");
     event.target.appendChild(document.getElementById(data));
   }
+
+
+/**
+ * Displays all of the images. Makes the images come back after being
+ * hidden on dragover
+ * Author: Baxter Madore
+ */
+
+function showAllImages() {
+	for (let count = 0; count < IMAGE_IDS.length; count++) {
+			document.getElementById(IMAGE_IDS[count]).style.opacity = 1
+	}
+}
+
+function playSound(correct) {
+    if (correct) {
+        document.getElementById("winsound").play()        
+        }
+    else {
+        document.getElementById("losesound").play()        
+        }
+}
