@@ -36,97 +36,155 @@ Author:
   <body>
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
     <div class="title">
-        <img id="volumeButton" src="./vol.jpg" onclick="playSound((Math.round(Math.random())))">
-        <p id="currWord">mnbvfacxz</p>
-        <div></div> <!-- Empty div for centering purposes. Do not delete -->
+      <img
+        id="volumeButton"
+        src="./vol.jpg"
+        onclick="playSound((Math.round(Math.random())))"
+      />
+      <p id="currWord">mnbvfacxz</p>
+      <div></div>
+      <!-- Empty div for centering purposes. Do not delete -->
     </div>
-     <div id="grid">
+    <!-- grid class-->
+    <div id="grid">
+      <!-- container class is required -->
       <div class="container">
+        <!-- Row 1 of the Grid -->
         <div class="row">
+          <!-- columns 1-2 -->
+          <div class="col-2">
+            <img src="./winstar.jpg" id="winstar1" class="resultImage" />
+          </div>
+          <!-- column 3 -->
+          <div class="col-1"><p id="test"></p></div>
+          <!-- columns 4-5 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,wiktm)"
+          >
+            <img src="wiktm.jpg" id="wiktm" draggable="false" />
+            <!--When I set the opcity of the images 0, when the bear is dropped it doesn't show?-->
+            <!--This was a work around I found. I just made an hidden Bear image and would make the image visible whenever the bear is dropped.-->
+            <img src="bear.jpg" id="wiktmBear" style="display: none" />
+          </div>
+          <!-- columns 6-7 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,teluisi)"
+          >
+            <img src="teluisi.jpg" id="teluisi" draggable="false" />
+            <img src="bear.jpg" id="teluisiBear" style="display: none" />
+          </div>
+          <!-- columns 8-9 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,nin)"
+          >
+            <img src="nin.jpg" id="nin" draggable="false" />
+            <img src="bear.jpg" id="ninBear" style="display: none" />
+          </div>
+          <!-- column 10 -->
           <div class="col-1"></div>
+          <!-- columns 11-12 -->
           <div class="col-2">
-            <div class="imgs">
-              <img src="./winstar.jpg" id="winstar1" class="resultImage">
-            </div>  
+            <img src="./loseflower.jpg" id="loseflower1" class="resultImage" />
           </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="wiktm.jpg" id="wiktm">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="teluisi.jpg" id="teluisi">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="nin.jpg" id="nin">
-            </div>
-          </div>
-          <div class="col-2">
-             <img src="./loseflower.jpg" id="loseflower1" class="resultImage">
-          </div>
-          <div class="col-1"></div>
-        </div>
-        
-        <!-- Row 2 of the Grid -->
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col-2">
-             <div class="infoTextHolder">
-                <p class="infoText" id="wintext">kelu'lk tela'tekn!</p>
-             </div>
-          </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="mijisi.jpg" id="mijisi">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="ltu.jpg" id="ltu">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="kil.jpg" id="kil">
-            </div>
-          </div>
-          <div class="col-2">
-             <div class="infoTextHolder">
-               <p class="infoText" id="losetext">tknu'kwalsi ap</p>
-             </div>
-          </div>
-          <div class="col-1"></div>
         </div>
 
+        <!-- Row 2 of the Grid -->
         <div class="row">
+          <!-- columns 1-2 -->
+          <div class="col-2">
+            <div class="infoTextHolder">
+              <p class="infoText" id="wintext">kelu'lk tela'tekn!</p>
+            </div>
+            <!--BEAR-->
+            <img src="bear.jpg" id="bear" ondragstart="drag(event)" />
+          </div>
+          <div class="col-1">
+            <!-- column 3-->
+          </div>
+          <!-- columns 4-5 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,mijisi)"
+          >
+            <img src="mijisi.jpg" id="mijisi" draggable="false" />
+            <img src="bear.jpg" id="mijisiBear" style="display: none" />
+          </div>
+          <!-- columns 6-7 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,ltu)"
+          >
+            <img src="ltu.jpg" id="ltu" draggable="false" />
+            <img src="bear.jpg" id="ltuBear" style="display: none" />
+          </div>
+          <!-- columns 8-9-->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,kil)"
+          >
+            <img src="kil.jpg" id="kil" draggable="false" />
+            <img src="bear.jpg" id="kilBear" style="display: none" />
+          </div>
+          <!-- column 10 -->
           <div class="col-1"></div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="./winstar.jpg" id="winstar1" class="resultImage">
-            </div>  
+        </div>
+        <!-- columns 11-12 -->
+        <div class="col-2">
+          <div class="infoTextHolder">
+            <p class="infoText" id="losetext">tknu'kwalsi ap</p>
           </div>
+        </div>
+
+        <!-- Row 3 of the Grid -->
+        <div class="row">
+          <!-- columns 1-2 -->
           <div class="col-2">
-            <div class="imgs">
-              <img src="kesalk.jpg" id="kesalk">
-            </div>
+            <img src="./winstar.jpg" id="winstar1" class="resultImage" />
           </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="eliey.jpg" id="eliey">
-            </div>
-          </div>
-          <div class="col-2">
-            <div class="imgs">
-              <img src="aqq.jpg" id="aqq">
-            </div>
-          </div>
-          <div class="col-2">
-             <img src="./loseflower.jpg" id="loseflower1" class="resultImage">
-          </div>
+          <!-- column 3 -->
           <div class="col-1"></div>
+          <!-- columns 4-5 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,kesalk)"
+          >
+            <img src="kesalk.jpg" id="kesalk" draggable="false" />
+            <img src="bear.jpg" id="kesalkBear" style="display: none" />
+          </div>
+          <!-- columns 6-7 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,eliey)"
+          >
+            <img src="eliey.jpg" id="eliey" draggable="false" />
+            <img src="bear.jpg" id="elieyBear" style="display: none" />
+          </div>
+          <!-- columns 8-9 -->
+          <div
+            class="col-2"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event,aqq)"
+          >
+            <img src="aqq.jpg" id="aqq" draggable="false" />
+            <img src="bear.jpg" id="aqqBear" style="display: none" />
+          </div>
+          <!-- columns 10 -->
+          <div class="col-1"></div>
+          <!-- columns 11-12 -->
+          <div class="col-2">
+            <img src="./loseflower.jpg" id="loseflower1" class="resultImage" />
+          </div>
         </div>
       </div>
     </div>
