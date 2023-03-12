@@ -80,7 +80,7 @@ function allowDrop(event, image) {
     a particular image. Can be expanded on once the grid seems to be
     good. */
 	showAllImages()
-    document.getElementById(image).style.opacity = 0
+    	document.getElementById(event.target.id).style.opacity = 0;
 	}
 
 /**
@@ -90,10 +90,16 @@ function allowDrop(event, image) {
  * @param event the event object being loaded for drop
  * 
  * Author: Caleb Bulmer
+ * Author: Ben Le: added code to show the bear when dropped
  */
 function drop(event) {
     event.preventDefault();
-  
+    
+    // completely hide the image so when the bear appears it doesn't stretch
+    $("#" + event.target.id).hide();
+    // makes the hidden bear visible
+    document.getElementById(event.target.id + "Bear").style.display = "block";
+	
     // contains the id of the element that was being dragged
     let data = event.dataTransfer.getData("text");
     event.target.appendChild(document.getElementById(data));
