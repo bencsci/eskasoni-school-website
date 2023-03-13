@@ -15,6 +15,12 @@ const IMAGE_IDS = [
 //global variables
 let correctAnswer, decision, allowGuesses;
 
+/*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
+  it is reset to true at the start of the round, and made false when the bear is dropped*/
+  
+startGame()//runs at page load because it's not in a function
+
+
 function startGame() {
   allowGuesses = true;
 }
@@ -58,6 +64,7 @@ function RandomInt(max) {
  * Author: Caleb Bulmer
  */
 function drag(event) {
+
   event.dataTransfer.setData("text", event.target.id);
 }
 
@@ -71,20 +78,21 @@ function drag(event) {
  * @param image The passed in image to be hidden.
  *
  * Author: Caleb Bulmer
- * Author: Baxter Madore: moved the code for showing images to a seperate function
+ * Author: Baxter Madore: moved the code for showing images to a seperate 
+ *		   function and integrateed allowGuesses
  */
 function allowDrop(event, image) {
-  event.preventDefault();
-  // console logs are to see what is happening while program runs.
-  console.log(event.target.id);
-  console.log("imageNum=" + image.getElementById);
+  if (allowGuesses) {
+    event.preventDefault();
+    // console logs are to see what is happening while program runs.
+    console.log(event.target.id);
+    /* The idea here being that we could show every image before hiding
+      a particular image. Can be expanded on once the grid seems to be
+      good. */
+    showAllImages();
 
-  /* The idea here being that we could show every image before hiding
-    a particular image. Can be expanded on once the grid seems to be
-    good. */
-  showAllImages();
-
-  document.getElementById(event.target.id).style.opacity = 0;
+    document.getElementById(event.target.id).style.opacity = 0;
+  }
 }
 
 /**
@@ -97,17 +105,21 @@ function allowDrop(event, image) {
  * Author: Ben Le: added code to show the bear when dropped
  */
 function drop(event) {
+  let imageDroppedOn //the id/word of the image that the bear was dropped on
   event.preventDefault();
-
   // completely hide the image so when the bear appears it doesn't stretch
   $("#" + event.target.id).hide();
+  imageDropppedOn = event.target.id
   // makes the hidden bear visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
 
   // contains the id of the element that was being dragged
   let data = event.dataTransfer.getData("text");
   event.target.appendChild(document.getElementById(data));
+  allowGuesses = false
+  checkAnswer(imageDroppedOn)
 }
+
 
 /**
  * Displays all of the images. Makes the images come back after being
