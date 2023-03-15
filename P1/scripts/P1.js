@@ -34,9 +34,14 @@ function initialize() {
  */
 function checkAnswer(decision) {
   if (decision === correctAnswer) {
-    alert("I'm so proud");
-    show(winStar); //This will show the win stars on the left side of the grid
+    //show the image of the win star or the fail Flower within this if else statement.
+    document.getElementById("winstar1").style.display = "inline-block"; 
+
+    document.getElementById("winstar2").style.display = "inline-block"; 
+  
+    alert("keklu'lk tela'tekn");
   } else {
+
     alert("WRONG");
     show(failFlower); //This will show the flowers on the right side of the grid
   }
