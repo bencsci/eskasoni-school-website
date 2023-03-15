@@ -50,7 +50,7 @@ function checkAnswer(decision) {
  *
  * Author: JC Blais
  */
-function RandomInt(max) {
+function randomInt(max) {
   return Math.floor(math.random() * max);
 }
 
@@ -109,7 +109,7 @@ function drop(event) {
   event.preventDefault();
   // completely hide the image so when the bear appears it doesn't stretch
   $("#" + event.target.id).hide();
-  imageDropppedOn = event.target.id
+  imageDroppedOn = event.target.id
   // makes the hidden bear visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
 
@@ -138,5 +138,47 @@ function playSound(correct) {
     document.getElementById("winsound").play();
   } else {
     document.getElementById("losesound").play();
+  }
+}
+
+/**
+ * This function restarts the table by setting allowGuesses
+ * to true, rolling a new random int to represent as the
+ * new word, and resetting the table to its original 
+ * position.
+ * 
+ * Author: Caleb Bulmer
+ */
+function restartGame(){
+  allowGuesses = true;
+  /*I figured a switch statement using randomInt
+    would be the easiest way to decide a new correct answer*/ 
+  switch(randomInt(8)){
+    case 0:
+      correctAnswer = "aqq"; 
+      break;
+    case 1:
+      correctAnswer = "eliey";
+      break;
+    case 2:
+      correctAnswer = "kesalk";
+      break;
+    case 3: 
+      correctAnswer = "kil";
+      break;
+    case 4:
+      correctAnswer = "ltu";
+      break;
+    case 5:
+      correctAnswer = "mijisi";
+      break;
+    case 6:
+      correctAnswer = "nin";
+      break;
+    case 7:
+      correctAnswer = "teluisi";
+      break;
+    default:
+      correctAnswer = "wiktm";
   }
 }
