@@ -18,10 +18,10 @@ let correctAnswer, decision, allowGuesses;
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped*/
   
-startGame()//runs at page load because it's not in a function
+initialize()//runs at page load because it's not in a function
 
 
-function startGame() {
+function initialize() {
   allowGuesses = true;
 }
 
@@ -43,7 +43,7 @@ function checkAnswer(decision) {
 }
 
 /**
- * This function generates a random number between 0 and param max.
+ * This function generates a random number between 0 and param max, exclusive.
  *
  * @param max is the number of which a random number can be picked from
  * @return a random int
@@ -51,7 +51,7 @@ function checkAnswer(decision) {
  * Author: JC Blais
  */
 function randomInt(max) {
-  return Math.floor(math.random() * max);
+  return Math.floor(Math.random() * max);
 }
 
 /**
@@ -90,7 +90,7 @@ function allowDrop(event, image) {
       a particular image. Can be expanded on once the grid seems to be
       good. */
     showAllImages();
-
+    console.log(event.target.id)
     document.getElementById(event.target.id).style.opacity = 0;
   }
 }
@@ -130,6 +130,7 @@ function drop(event) {
 function showAllImages() {
   for (let count = 0; count < IMAGE_IDS.length; count++) {
     document.getElementById(IMAGE_IDS[count]).style.opacity = 1;
+    document.getElementById(IMAGE_IDS[count]).style.display = "block";
   }
 }
 
@@ -149,36 +150,14 @@ function playSound(correct) {
  * 
  * Author: Caleb Bulmer
  */
-function restartGame(){
+function restartGame() {
   allowGuesses = true;
-  /*I figured a switch statement using randomInt
-    would be the easiest way to decide a new correct answer*/ 
-  switch(randomInt(8)){
-    case 0:
-      correctAnswer = "aqq"; 
-      break;
-    case 1:
-      correctAnswer = "eliey";
-      break;
-    case 2:
-      correctAnswer = "kesalk";
-      break;
-    case 3: 
-      correctAnswer = "kil";
-      break;
-    case 4:
-      correctAnswer = "ltu";
-      break;
-    case 5:
-      correctAnswer = "mijisi";
-      break;
-    case 6:
-      correctAnswer = "nin";
-      break;
-    case 7:
-      correctAnswer = "teluisi";
-      break;
-    default:
-      correctAnswer = "wiktm";
+  correctAnswer = IMAGE_IDS[randomInt(9)];
+  document.getElementById("currWord").innerHTML = correctAnswer;
+  document.getElementById("bearHolder").innerHTML = "<img src='bear.jpg' id='bear' ondragstart='drag(event)'>" 
+  //put the bear back in its spot (above line) and take it out of where it was placed
+  for (let count = 0; count < IMAGE_IDS.length; count++) {
+    document.getElementById(IMAGE_IDS[count]+"Bear").style.display = "none";
   }
-}
+  showAllImages();
+  }

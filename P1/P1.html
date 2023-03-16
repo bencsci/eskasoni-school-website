@@ -35,7 +35,7 @@ Author:
 
   <body>
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
-    <div class="title">
+    <div class="title" ondragover="showAllImages()">
       <img
         id="volumeButton"
         src="./vol.jpg"
@@ -56,7 +56,7 @@ Author:
             <img src="./winstar.jpg" id="winstar1" class="resultImage" />
           </div>
           <!-- column 3 -->
-          <div class="col-1"></div>
+          <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 4-5 -->
           <div
             class="col-2"
@@ -87,7 +87,7 @@ Author:
             <img src="bear.jpg" id="ninBear" style="display: none" />
           </div>
           <!-- column 10 -->
-          <div class="col-1"></div>
+          <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 11-12 -->
           <div class="col-2">
             <img src="./loseflower.jpg" id="loseflower1" class="resultImage" />
@@ -102,9 +102,11 @@ Author:
               <p class="infoText" id="wintext">kelu'lk tela'tekn!</p>
             </div>
             <!--BEAR-->
+            <div id="bearHolder">
             <img src="bear.jpg" id="bear" ondragstart="drag(event)" />
+            </div>
           </div>
-          <div class="col-1">
+          <div class="col-1" ondragover="showAllImages()">
             <!-- column 3-->
           </div>
           <!-- columns 4-5 -->
@@ -135,7 +137,7 @@ Author:
             <img src="bear.jpg" id="kilBear" style="display: none" />
           </div>
           <!-- column 10 -->
-          <div class="col-1"></div>
+          <div class="col-1" ondragover="showAllImages()"></div>
         </div>
         <!-- columns 11-12 -->
         <div class="col-2">
@@ -151,7 +153,7 @@ Author:
             <img src="./winstar.jpg" id="winstar1" class="resultImage" />
           </div>
           <!-- column 3 -->
-          <div class="col-1"></div>
+          <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 4-5 -->
           <div
             class="col-2"
@@ -180,7 +182,7 @@ Author:
             <img src="bear.jpg" id="aqqBear" style="display: none" />
           </div>
           <!-- columns 10 -->
-          <div class="col-1"></div>
+          <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 11-12 -->
           <div class="col-2">
             <img src="./loseflower.jpg" id="loseflower1" class="resultImage" />
