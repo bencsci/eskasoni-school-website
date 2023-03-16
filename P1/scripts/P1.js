@@ -128,7 +128,7 @@ function drop(event) {
 
 /**
  * Displays all of the images. Makes the images come back after being
- * hidden on dragover
+ * hidden on dragover or having the bear put on them
  * Author: Baxter Madore
  */
 
@@ -154,12 +154,16 @@ function playSound(correct) {
  * position.
  * 
  * Author: Caleb Bulmer
+ * Author: Baxter Madore: Added code to return the bear to its holder
+ * and restore images from under the bear
  */
 function restartGame() {
   allowGuesses = true;
   correctAnswer = IMAGE_IDS[randomInt(9)];
   document.getElementById("currWord").innerHTML = correctAnswer;
   document.getElementById("bearHolder").innerHTML = "<img src='bear.jpg' id='bear' ondragstart='drag(event)'>" 
+  document.getElementById("winText").style.display = "none";
+  document.getElementById("loseText").style.display = "none"
   //put the bear back in its spot (above line) and take it out of where it was placed
   for (let count = 0; count < IMAGE_IDS.length; count++) {
     document.getElementById(IMAGE_IDS[count]+"Bear").style.display = "none";
