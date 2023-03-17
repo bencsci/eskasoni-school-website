@@ -1,8 +1,6 @@
 <!-- This file represents the main gameplay screen 
 for the Mi'kmaq image matching game. 
-
 Author:
-
 -->
 
 <!DOCTYPE html>
@@ -23,8 +21,8 @@ Author:
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-	<!-- Add jQuery support (some functions in JS rely on it) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Add jQuery support (some functions in JS rely on it) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Make P1.css accessible to this file -->
     <link rel="stylesheet" href="./css/P1.css" />
     <!-- make the JavaScript file available to this file -->
@@ -33,15 +31,21 @@ Author:
     <audio src="melogoff.wav" preload="auto" id="losesound"></audio>
   </head>
 
-  <body>
+  <body onload="initialize()" draggable="false">
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
     <div class="title" ondragover="showAllImages()">
       <img
         id="volumeButton"
         src="./vol.jpg"
+        draggable="false"
         onclick="playSound((Math.round(Math.random())))"
       />
-      <p id="currWord" onclick="restartGame()">mnbvfacxz</p>
+      <div id="currWord">
+        <img src="./blank.jpg" id="currWordImg" draggable="false" />
+      </div>
+      <p id="restart" onclick="restartGame()" style="display: none">
+        si'owa'si?
+      </p>
       <div></div>
       <!-- Empty div for centering purposes. Do not delete -->
     </div>
@@ -53,7 +57,12 @@ Author:
         <div class="row">
           <!-- columns 1-2 -->
           <div class="col-2">
-            <img src="./winstar.jpg" id="winstar1" class="resultImage" />
+            <img
+              src="./winstar.jpg"
+              id="winstar1"
+              class="resultImage"
+              draggable="false"
+            />
           </div>
           <!-- column 3 -->
           <div class="col-1" ondragover="showAllImages()"></div>
@@ -66,7 +75,12 @@ Author:
             <img src="wiktm.jpg" id="wiktm" draggable="false" />
             <!--When I set the opcity of the images 0, when the bear is dropped it doesn't show?-->
             <!--This was a work around I found. I just made an hidden Bear image and would make the image visible whenever the bear is dropped.-->
-            <img src="bear.jpg" id="wiktmBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="wiktmBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 6-7 -->
           <div
@@ -75,7 +89,12 @@ Author:
             ondragover="allowDrop(event,teluisi)"
           >
             <img src="teluisi.jpg" id="teluisi" draggable="false" />
-            <img src="bear.jpg" id="teluisiBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="teluisiBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 8-9 -->
           <div
@@ -84,13 +103,23 @@ Author:
             ondragover="allowDrop(event,nin)"
           >
             <img src="nin.jpg" id="nin" draggable="false" />
-            <img src="bear.jpg" id="ninBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="ninBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- column 10 -->
           <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 11-12 -->
           <div class="col-2">
-            <img src="./loseflower.jpg" id="loseflower1" class="resultImage" />
+            <img
+              src="./loseflower.jpg"
+              id="loseflower1"
+              class="resultImage"
+              draggable="false"
+            />
           </div>
         </div>
 
@@ -99,16 +128,17 @@ Author:
           <!-- columns 1-2 -->
           <div class="col-2">
             <div class="infoTextHolder">
-              <p class="infoText" id="wintext">kelu'lk tela'tekn!</p>
+              <p class="infoText" id="wintext" draggable="false">
+                kelu'lk tela'tekn!
+              </p>
             </div>
             <!--BEAR-->
             <div id="bearHolder">
-            <img src="bear.jpg" id="bear" ondragstart="drag(event)" />
+              <img src="bear.jpg" id="bear" ondragstart="drag(event)" />
             </div>
           </div>
-          <div class="col-1" ondragover="showAllImages()">
-            <!-- column 3-->
-          </div>
+          <!-- column 3-->
+          <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 4-5 -->
           <div
             class="col-2"
@@ -116,7 +146,12 @@ Author:
             ondragover="allowDrop(event,mijisi)"
           >
             <img src="mijisi.jpg" id="mijisi" draggable="false" />
-            <img src="bear.jpg" id="mijisiBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="mijisiBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 6-7 -->
           <div
@@ -125,7 +160,12 @@ Author:
             ondragover="allowDrop(event,ltu)"
           >
             <img src="ltu.jpg" id="ltu" draggable="false" />
-            <img src="bear.jpg" id="ltuBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="ltuBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 8-9-->
           <div
@@ -134,24 +174,34 @@ Author:
             ondragover="allowDrop(event,kil)"
           >
             <img src="kil.jpg" id="kil" draggable="false" />
-            <img src="bear.jpg" id="kilBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="kilBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- column 10 -->
-          <div class="col-1" ondragover="showAllImages()"></div>    
-		  <!-- Columns 11 and 12 -->
-		  <div class="col-2">
+          <div class="col-1" ondragover="showAllImages()"></div>
+          <!-- columns 11-12 -->
+          <div class="col-2">
             <div class="infoTextHolder">
-              <p class="infoText" id="losetext">tknu'kwalsi ap</p>
+              <p class="infoText" id="losetext" draggable="false">
+                tknu'kwalsi ap
+              </p>
             </div>
           </div>
         </div>
-
-
         <!-- Row 3 of the Grid -->
         <div class="row">
           <!-- columns 1-2 -->
           <div class="col-2">
-            <img src="./winstar.jpg" id="winstar2" class="resultImage" />
+            <img
+              src="./winstar.jpg"
+              id="winstar2"
+              class="resultImage"
+              draggable="false"
+            />
           </div>
           <!-- column 3 -->
           <div class="col-1" ondragover="showAllImages()"></div>
@@ -162,7 +212,12 @@ Author:
             ondragover="allowDrop(event,kesalk)"
           >
             <img src="kesalk.jpg" id="kesalk" draggable="false" />
-            <img src="bear.jpg" id="kesalkBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="kesalkBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 6-7 -->
           <div
@@ -171,7 +226,12 @@ Author:
             ondragover="allowDrop(event,eliey)"
           >
             <img src="eliey.jpg" id="eliey" draggable="false" />
-            <img src="bear.jpg" id="elieyBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="elieyBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 8-9 -->
           <div
@@ -180,13 +240,23 @@ Author:
             ondragover="allowDrop(event,aqq)"
           >
             <img src="aqq.jpg" id="aqq" draggable="false" />
-            <img src="bear.jpg" id="aqqBear" style="display: none" />
+            <img
+              src="bear.jpg"
+              id="aqqBear"
+              style="display: none"
+              draggable="false"
+            />
           </div>
           <!-- columns 10 -->
           <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 11-12 -->
           <div class="col-2">
-            <img src="./loseflower.jpg" id="loseflower1" class="resultImage" />
+            <img
+              src="./loseflower.jpg"
+              id="loseflower2"
+              class="resultImage"
+              draggable="false"
+            />
           </div>
         </div>
       </div>
