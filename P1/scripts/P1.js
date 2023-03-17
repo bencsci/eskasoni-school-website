@@ -13,15 +13,15 @@ const IMAGE_IDS = [
 ];
 
 //global variables
-let correctAnswer, decision, allowGuesses;
+let correctAnswer, imageDroppedOn, allowGuesses, isCorrect;
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped*/
-  
-initialize()//runs at page load because it's not in a function
 
+// initialize(); //runs at page load because it's not in a function
 
 function initialize() {
+  getRandomWords();
   allowGuesses = true;
 }
 
@@ -34,16 +34,35 @@ function initialize() {
  */
 function checkAnswer(decision) {
   if (decision === correctAnswer) {
-    //show the image of the win star or the fail Flower within this if else statement.
-    document.getElementById("winstar1").style.display = "inline-block"; 
+    isCorrect = true;
 
-    document.getElementById("winstar2").style.display = "inline-block"; 
-  
-    alert("keklu'lk tela'tekn");
+    //This will show the win stars on the left side of the grid
+    document.getElementById("winstar1").style.display = "block";
+    document.getElementById("winstar2").style.display = "block";
+    document.getElementById("wintext").style.display = "block";
+
+    //hides the volume button
+    document.getElementById("volumeButton").style.display = "none";
+    //hides the current word
+    document.getElementById("currWord").style.display = "none";
+    //shows the restart button
+    document.getElementById("restart").style.display = "block";
+    document.getElementById("restart").style.margin = "auto";
   } else {
+    isCorrect = false;
 
-    alert("WRONG");
-    show(failFlower); //This will show the flowers on the right side of the grid
+    //This will show the flowers on the right side of the grid
+    document.getElementById("loseflower1").style.display = "block";
+    document.getElementById("loseflower2").style.display = "block";
+    document.getElementById("losetext").style.display = "block";
+
+    //hides the volume button
+    document.getElementById("volumeButton").style.display = "none";
+    //hides the current word
+    document.getElementById("currWord").style.display = "none";
+    //shows the restart button
+    document.getElementById("restart").style.display = "block";
+    document.getElementById("restart").style.margin = "auto";
   }
 }
 
@@ -69,7 +88,6 @@ function randomInt(max) {
  * Author: Caleb Bulmer
  */
 function drag(event) {
-
   event.dataTransfer.setData("text", event.target.id);
 }
 
@@ -83,7 +101,7 @@ function drag(event) {
  * @param image The passed in image to be hidden.
  *
  * Author: Caleb Bulmer
- * Author: Baxter Madore: moved the code for showing images to a seperate 
+ * Author: Baxter Madore: moved the code for showing images to a seperate
  *		   function and integrateed allowGuesses
  */
 function allowDrop(event, image) {
@@ -92,10 +110,10 @@ function allowDrop(event, image) {
     // console logs are to see what is happening while program runs.
     console.log(event.target.id);
     /* The idea here being that we could show every image before hiding
-      a particular image. Can be expanded on once the grid seems to be
-      good. */
+        a particular image. Can be expanded on once the grid seems to be
+        good. */
     showAllImages();
-    console.log(event.target.id)
+
     document.getElementById(event.target.id).style.opacity = 0;
   }
 }
@@ -110,21 +128,32 @@ function allowDrop(event, image) {
  * Author: Ben Le: added code to show the bear when dropped
  */
 function drop(event) {
-  let imageDroppedOn //the id/word of the image that the bear was dropped on
+  //
+
   event.preventDefault();
+
   // completely hide the image so when the bear appears it doesn't stretch
   $("#" + event.target.id).hide();
-  imageDroppedOn = event.target.id
+  imageDroppedOn = event.target.id;
+  console.log("ImgDroppedON: " + imageDroppedOn);
+
   // makes the hidden bear visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
+
+  document
+    .getElementById(event.target.id + "Bear")
+    .setAttribute("draggable", "false");
 
   // contains the id of the element that was being dragged
   let data = event.dataTransfer.getData("text");
   event.target.appendChild(document.getElementById(data));
-  allowGuesses = false
-  checkAnswer(imageDroppedOn)
-}
 
+  allowGuesses = false;
+  checkAnswer(imageDroppedOn);
+
+  //Needed to add this because sometimes the bear wouldn't disappear when the winstars we displayed
+  document.getElementById("bearHolder").innerHTML = "";
+}
 
 /**
  * Displays all of the images. Makes the images come back after being
@@ -148,25 +177,78 @@ function playSound(correct) {
 }
 
 /**
+ * This function gets a random word out of the array of possible words and displays it at the top of the screen
+ * for user to play. Sets the answer to the correctAnswer.
+ *
+ * Author: Ben Le
+ */
+function getRandomWords() {
+  let randomNum = randomInt(9);
+
+  //for testing purposes
+  console.log("randomWord=" + randomNum);
+  console.log("./" + IMAGE_IDS[randomNum] + "Text.jpg");
+
+  //sets the image to the image of the random word
+  document.getElementById("currWordImg").src =
+    "./" + IMAGE_IDS[randomNum] + "Text.jpg";
+
+  correctAnswer = IMAGE_IDS[randomNum];
+}
+
+function playSound(correct) {
+  if (correct) {
+    document.getElementById("winsound").play();
+  } else {
+    document.getElementById("losesound").play();
+  }
+}
+
+/**
  * This function restarts the table by setting allowGuesses
  * to true, rolling a new random int to represent as the
- * new word, and resetting the table to its original 
+ * new word, and resetting the table to its original
  * position.
- * 
+ *
  * Author: Caleb Bulmer
  * Author: Baxter Madore: Added code to return the bear to its holder
  * and restore images from under the bear
+ * Author: Ben Le: Added code to display another random word
  */
 function restartGame() {
   allowGuesses = true;
-  correctAnswer = IMAGE_IDS[randomInt(9)];
-  document.getElementById("currWord").innerHTML = correctAnswer;
-  document.getElementById("bearHolder").innerHTML = "<img src='bear.jpg' id='bear' ondragstart='drag(event)'>" 
-  document.getElementById("winText").style.display = "none";
-  document.getElementById("loseText").style.display = "none"
-  //put the bear back in its spot (above line) and take it out of where it was placed
-  for (let count = 0; count < IMAGE_IDS.length; count++) {
-    document.getElementById(IMAGE_IDS[count]+"Bear").style.display = "none";
-  }
+
+  document.getElementById("bearHolder").innerHTML =
+    "<img src='bear.jpg' id='bear' ondragstart='drag(event)'>";
+
+  //show the volume button
+  document.getElementById("volumeButton").style.display = "block";
+
+  //hide the text
+  document.getElementById("wintext").style.display = "none";
+  document.getElementById("losetext").style.display = "none";
+
   showAllImages();
+
+  //hide the winstars
+  document.getElementById("winstar1").style.display = "none";
+  document.getElementById("winstar2").style.display = "none";
+
+  //hide the loseflowers
+  document.getElementById("loseflower1").style.display = "none";
+  document.getElementById("loseflower2").style.display = "none";
+
+  //hide the bear behind the images
+  if (isCorrect === true) {
+    document.getElementById(correctAnswer + "Bear").style.display = "none";
+  } else {
+    document.getElementById(imageDroppedOn + "Bear").style.display = "none";
   }
+
+  //hides the restart button
+  document.getElementById("restart").style.display = "none";
+
+  //shows the new random word
+  document.getElementById("currWord").style.display = "block";
+  getRandomWords();
+}
