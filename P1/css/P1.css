@@ -23,6 +23,7 @@ body {
   top: calc(var(--distanceFromTop) - var(--titleSize));
   /*Makes the grid always be 9.68rem from the top, no matter how large the title font
     (the title font changes size between the "try again" and the word display) */
+  user-select: none;
 }
 
 #volumeButton {
@@ -40,11 +41,11 @@ body {
   display: block;
   font-size: calc(var(--titleSize) - 1rem);
   position: relative;
-  left: calc(var(--titleSize) * -0.4); 
+  left: calc(var(--titleSize) * -0.4);
   /*Centers it better in the presence of the volume button*/
 }
 
-#currWord:hover {
+#restart:hover {
   cursor: pointer;
   color: magenta;
 }
@@ -58,6 +59,7 @@ body {
   font-size: var(--titleSize);
   display: flex;
   justify-content: space-between;
+  user-select: none;
 }
 
 .infoText {
@@ -80,7 +82,6 @@ body {
   position: relative; /*center the text vertically*/
   top: calc(50% - 1.5rem);
   left: 0.3rem;
-
 }
 
 img {
@@ -89,3 +90,4 @@ img {
   width: 110%;
   height: 100%;
 }
+
