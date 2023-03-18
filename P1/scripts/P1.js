@@ -152,7 +152,7 @@ function drop(event) {
 
 /**
  * Displays all of the images. Makes the images come back after being
- * hidden on dragover or having the bear put on them
+ * hidden on dragover or having the bear put on them.
  * Author: Baxter Madore
  */
 
@@ -163,12 +163,17 @@ function showAllImages() {
   }
 }
 
-function playSound(correct) {
-  if (correct) {
-    document.getElementById("winsound").play();
-  } else {
-    document.getElementById("losesound").play();
-  }
+/**
+ * This function plays the correct audio file when the volume
+ * button is clicked on.
+ * 
+ * Author: Baxter Madore
+ * Author: Caleb Bulmer: Implemented the correct audio files
+ */
+function playSound() {
+//making sure the answer matches up with the image and audio file
+ console.log(correctAnswer);
+ document.getElementById("audio_" + correctAnswer).play();
 }
 
 /**
@@ -189,14 +194,6 @@ function getRandomWords() {
     "./" + IMAGE_IDS[randomNum] + "Text.jpg";
 
   correctAnswer = IMAGE_IDS[randomNum];
-}
-
-function playSound(correct) {
-  if (correct) {
-    document.getElementById("winsound").play();
-  } else {
-    document.getElementById("losesound").play();
-  }
 }
 
 /**

@@ -27,8 +27,15 @@ Author:
     <link rel="stylesheet" href="./css/P1.css" />
     <!-- make the JavaScript file available to this file -->
     <script src="./scripts/P1.js"></script>
-    <audio src="TADA.mp3" preload="auto" id="winsound"></audio>
-    <audio src="melogoff.wav" preload="auto" id="losesound"></audio>
+    <audio src="./audios/aqq.wav" preload="auto" id="audio_aqq"></audio>
+    <audio src="./audios/eliey.wav" preload="auto" id="audio_eliey"></audio>
+    <audio src="./audios/kesalk.wav" preload="auto" id="audio_kesalk"></audio>
+    <audio src="./audios/kil.wav" preload="auto" id="audio_kil"></audio>
+    <audio src="./audios/ltu.wav" preload="auto" id="audio_ltu"></audio>
+    <audio src="./audios/mijisi.wav" preload="auto" id="audio_mijisi"></audio>
+    <audio src="./audios/nin.wav" preload="auto" id="audio_nin"></audio>
+    <audio src="./audios/teluisi.wav" preload="auto" id="audio_teluisi"></audio>
+    <audio src="./audios/wiktm.wav" preload="auto" id="audio_wiktm"></audio>
   </head>
 
   <body onload="initialize()" draggable="false">
@@ -38,7 +45,7 @@ Author:
         id="volumeButton"
         src="./vol.jpg"
         draggable="false"
-        onclick="playSound((Math.round(Math.random())))"
+        onclick="playSound()"
       />
       <div id="currWord">
         <img src="./blank.jpg" id="currWordImg" draggable="false" />
