@@ -79,9 +79,9 @@ function randomInt(max) {
 }
 
 /**
- * This function stores the id of the element being dragged
+ * This function stores the id of the bear being dragged
  * in a storage area under the key "text". Target is the
- * element being dragged.
+ * bear being dragged.
  *
  * @param event the event object being loaded for dragging
  *
@@ -93,8 +93,8 @@ function drag(event) {
 
 /**
  * This functions suspends default behaviour for a
- * potential new position for the dragged element. Target
- * is the potential element where dragged element could be
+ * potential new position for the bear. Target
+ * is the potential element where the bear could be
  * dropped.
  *
  * @param event the event object being loaded for allowDrop
@@ -109,9 +109,6 @@ function allowDrop(event, image) {
     event.preventDefault();
     // console logs are to see what is happening while program runs.
     console.log(event.target.id);
-    /* The idea here being that we could show every image before hiding
-        a particular image. Can be expanded on once the grid seems to be
-        good. */
     showAllImages();
 
     document.getElementById(event.target.id).style.opacity = 0;
@@ -128,8 +125,6 @@ function allowDrop(event, image) {
  * Author: Ben Le: added code to show the bear when dropped
  */
 function drop(event) {
-  //
-
   event.preventDefault();
 
   // completely hide the image so when the bear appears it doesn't stretch
@@ -151,7 +146,7 @@ function drop(event) {
   allowGuesses = false;
   checkAnswer(imageDroppedOn);
 
-  //Needed to add this because sometimes the bear wouldn't disappear when the winstars we displayed
+  //Needed to add this because sometimes the bear wouldn't disappear when the winstars displayed
   document.getElementById("bearHolder").innerHTML = "";
 }
 
