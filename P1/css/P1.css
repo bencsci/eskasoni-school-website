@@ -45,6 +45,12 @@ body {
   /*Centers it better in the presence of the volume button*/
 }
 
+#restart {
+  font-family: "Comic Sans MS";
+  font-weight: bold;
+  color: black;
+}
+
 #restart:hover {
   cursor: pointer;
   color: magenta;
@@ -64,6 +70,11 @@ body {
 
 .infoText {
   display: none;
+  font-family: "Comic Sans MS";
+  font-weight: bold;
+  font-style: italic;
+  font-size: 0.99em;
+  color: black;
 }
 
 .resultImage {
@@ -90,4 +101,3 @@ img {
   width: 110%;
   height: 100%;
 }
-
