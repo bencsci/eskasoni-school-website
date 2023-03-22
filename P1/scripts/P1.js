@@ -16,9 +16,9 @@ const IMAGE_IDS = [
 let correctAnswer, imageDroppedOn, allowGuesses, isCorrect;
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
-  it is reset to true at the start of the round, and made false when the bear is dropped*/
+  it is reset to true at the start of the round, and made false when the bear is dropped.*/
 
-// initialize(); //runs at page load because it's not in a function
+initialize(); //runs at page load because it's not in a function
 
 function initialize() {
   getRandomWords();
@@ -92,7 +92,7 @@ function drag(event) {
 }
 
 /**
- * This functions suspends default behaviour for a
+ * This function suspends default behaviour for a
  * potential new position for the bear. Target
  * is the potential element where the bear could be
  * dropped.
@@ -116,7 +116,7 @@ function allowDrop(event, image) {
 }
 
 /**
- * This function is what will happen when the dragged
+ * This function will be called when the dragged
  * element is decided to be dropped in the position.
  *
  * @param event the event object being loaded for drop
@@ -134,7 +134,6 @@ function drop(event) {
 
   // makes the hidden bear visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
-
   document
     .getElementById(event.target.id + "Bear")
     .setAttribute("draggable", "false");
@@ -155,7 +154,6 @@ function drop(event) {
  * hidden on dragover or having the bear put on them.
  * Author: Baxter Madore
  */
-
 function showAllImages() {
   for (let count = 0; count < IMAGE_IDS.length; count++) {
     document.getElementById(IMAGE_IDS[count]).style.opacity = 1;
