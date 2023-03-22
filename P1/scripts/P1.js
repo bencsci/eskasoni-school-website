@@ -18,7 +18,7 @@ let correctAnswer, imageDroppedOn, allowGuesses, isCorrect;
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
 
-initialize(); //runs at page load because it's not in a function
+// initialize(); //runs at page load because it's not in a function
 
 function initialize() {
   getRandomWords();
@@ -134,6 +134,7 @@ function drop(event) {
 
   // makes the hidden bear visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
+
   document
     .getElementById(event.target.id + "Bear")
     .setAttribute("draggable", "false");
@@ -145,7 +146,7 @@ function drop(event) {
   allowGuesses = false;
   checkAnswer(imageDroppedOn);
 
-  //Needed to add this because sometimes the bear wouldn't disappear when the winstars displayed
+  // needed to add this because sometimes the bear wouldn't disappear when the winstars displayed
   document.getElementById("bearHolder").innerHTML = "";
 }
 
@@ -154,6 +155,7 @@ function drop(event) {
  * hidden on dragover or having the bear put on them.
  * Author: Baxter Madore
  */
+
 function showAllImages() {
   for (let count = 0; count < IMAGE_IDS.length; count++) {
     document.getElementById(IMAGE_IDS[count]).style.opacity = 1;
@@ -164,14 +166,14 @@ function showAllImages() {
 /**
  * This function plays the correct audio file when the volume
  * button is clicked on.
- * 
+ *
  * Author: Baxter Madore
  * Author: Caleb Bulmer: Implemented the correct audio files
  */
 function playSound() {
-//making sure the answer matches up with the image and audio file
- console.log(correctAnswer);
- document.getElementById("audio_" + correctAnswer).play();
+  //making sure the answer matches up with the image and audio file
+  console.log(correctAnswer);
+  document.getElementById("audio_" + correctAnswer).play();
 }
 
 /**
@@ -185,11 +187,11 @@ function getRandomWords() {
 
   //for testing purposes
   console.log("randomWord=" + randomNum);
-  console.log("./" + IMAGE_IDS[randomNum] + "Text.jpg");
+  console.log("./images/" + IMAGE_IDS[randomNum] + "Text.jpg");
 
   //sets the image to the image of the random word
   document.getElementById("currWordImg").src =
-    "./" + IMAGE_IDS[randomNum] + "Text.jpg";
+    "./images/" + IMAGE_IDS[randomNum] + "Text.jpg";
 
   correctAnswer = IMAGE_IDS[randomNum];
 }
@@ -209,7 +211,7 @@ function restartGame() {
   allowGuesses = true;
 
   document.getElementById("bearHolder").innerHTML =
-    "<img src='bear.jpg' id='bear' ondragstart='drag(event)'>";
+    "<img src='./images/bear.jpg' id='bear' ondragstart='drag(event)'>";
 
   //show the volume button
   document.getElementById("volumeButton").style.display = "block";
