@@ -30,7 +30,7 @@ function initialize() {
  *
  * @param decision is the number of the image where the bear was dropped
  *
- * Author: JC Blais
+ * Author: JC Blais: Wrote code to display images for winning or losing
  */
 function checkAnswer(decision) {
   if (decision === correctAnswer) {
@@ -72,7 +72,7 @@ function checkAnswer(decision) {
  * @param max is the number of which a random number can be picked from
  * @return a random int
  *
- * Author: JC Blais
+ * Author: JC Blais: Initial function logic
  */
 function randomInt(max) {
   return Math.floor(Math.random() * max);
@@ -123,12 +123,13 @@ function allowDrop(event, image) {
  *
  * Author: Caleb Bulmer
  * Author: Ben Le: added code to show the bear when dropped
+ * Author: Baxter Madore: Removed jQuery dependency
  */
 function drop(event) {
   event.preventDefault();
 
   // completely hide the image so when the bear appears it doesn't stretch
-  $("#" + event.target.id).hide();
+  document.getElementById(event.target.id).style.display = "none";
   imageDroppedOn = event.target.id;
   console.log("ImgDroppedON: " + imageDroppedOn);
 
@@ -171,8 +172,6 @@ function showAllImages() {
  * Author: Caleb Bulmer: Implemented the correct audio files
  */
 function playSound() {
-  //making sure the answer matches up with the image and audio file
-  console.log(correctAnswer);
   document.getElementById("audio_" + correctAnswer).play();
 }
 
@@ -180,7 +179,7 @@ function playSound() {
  * This function gets a random word out of the array of possible words and displays it at the top of the screen
  * for user to play. Sets the answer to the correctAnswer.
  *
- * Author: Ben Le
+ * Author: Ben Le: Initial logic and control flow
  */
 function getRandomWords() {
   let randomNum = randomInt(9);
@@ -189,7 +188,7 @@ function getRandomWords() {
   console.log("randomWord=" + randomNum);
   console.log("./images/" + IMAGE_IDS[randomNum] + "Text.jpg");
 
-  //sets the image to the image of the random word
+  //sets the image to the image of the chosen word
   document.getElementById("currWordImg").src =
     "./images/" + IMAGE_IDS[randomNum] + "Text.jpg";
 
@@ -202,7 +201,7 @@ function getRandomWords() {
  * new word, and resetting the table to its original
  * position.
  *
- * Author: Caleb Bulmer
+ * Author: Caleb Bulmer: Initial function logic
  * Author: Baxter Madore: Added code to return the bear to its holder
  * and restore images from under the bear
  * Author: Ben Le: Added code to display another random word

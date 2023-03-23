@@ -1,3 +1,9 @@
+/* This file contains the main styling information for the picture matching game
+   Author: Baxter Madore: Main structure and most of the styling infoText
+   Author: Ben Le: Added Comic Sans font support and glitch fixing
+*/
+
+
 /* Place for CSS variables *********************************/
 :root {
   --distanceFromTop: 9.68rem;
@@ -15,6 +21,14 @@ body {
   background-color: rgb(240, 231, 140);
 }
 
+img {
+  /* Note the width is expanded so the images display properly
+  within the grid */
+  width: 110%;
+  height: 100%;
+}
+
+
 /* id based styles *****************************************/
 #grid {
   width: 69%; /*the middle three rows take about 69*.6=41.4%. Nice*/
@@ -28,7 +42,7 @@ body {
 
 #volumeButton {
   display: inline;
-  width: var(--titleSize);
+  width: var(--titleSize); /*Make it as tall as the rest of the title bar*/
   height: var(--titleSize);
   margin-top: 1rem;
 }
@@ -49,6 +63,7 @@ body {
   font-family: "Comic Sans MS";
   font-weight: bold;
   color: black;
+  display: none;
 }
 
 #restart:hover {
@@ -95,9 +110,3 @@ body {
   left: 0.3rem;
 }
 
-img {
-  /* Note the width is expanded so the images display properly
-  within the grid */
-  width: 110%;
-  height: 100%;
-}

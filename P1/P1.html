@@ -1,16 +1,16 @@
 <!-- This file represents the main gameplay screen 
 for the Mi'kmaq image matching game. 
-Author: Ben Le
-Author: Baxter Madore
-Author: JC Blais
-Author: Caleb Bulmer
+Author: Ben Le: Main grid structure
+Author: Baxter Madore: Glitch fixing and initial audio integration
+Author: JC Blais: added ids and JS functions to many objects
+Author: Caleb Bulmer: Final audio integration and JS integration
 -->
 
 <!DOCTYPE html>
 <html>
   <head>
     <!-- Sets what appears in the window tab -->
-    <title>P1</title>
+    <title>Word Matching Game</title>
     <!-- For the browser to display the page correctly the character 
        encoding must be made known to the browser. Each character
        has a unique value or code as mapped in UTF-8 -->
@@ -24,12 +24,11 @@ Author: Caleb Bulmer
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- Add jQuery support (some functions in JS rely on it) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <!-- Make P1.css accessible to this file -->
     <link rel="stylesheet" href="./css/P1.css" />
     <!-- make the JavaScript file available to this file -->
     <script src="./scripts/P1.js"></script>
+	<!-- The sound files that play when the user clicks the volume button -->
     <audio src="./audios/aqq.wav" preload="auto" id="audio_aqq"></audio>
     <audio src="./audios/eliey.wav" preload="auto" id="audio_eliey"></audio>
     <audio src="./audios/kesalk.wav" preload="auto" id="audio_kesalk"></audio>
@@ -41,6 +40,7 @@ Author: Caleb Bulmer
     <audio src="./audios/wiktm.wav" preload="auto" id="audio_wiktm"></audio>
   </head>
 
+  <!-- Runs the code to set up and start the game on page load-->
   <body onload="initialize()" draggable="false">
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
     <div class="title" ondragover="showAllImages()">
@@ -54,12 +54,11 @@ Author: Caleb Bulmer
       <div id="currWord">
         <img src="./images/blank.jpg" id="currWordImg" draggable="false" />
       </div>
-      <!--The restart button for the game-->
-      <p id="restart" onclick="restartGame()" style="display: none">
+      <!--The restart button for the game. Not always visible, and in fact, starts invisible-->
+      <p id="restart" onclick="restartGame()">
         si'owa'si?
       </p>
-      <div></div>
-      <!-- Empty div for centering purposes. Do not delete -->
+      <div></div> <!-- Empty div for centering purposes. Do not delete -->
     </div>
     <!-- grid class-->
     <div id="grid">
@@ -67,7 +66,7 @@ Author: Caleb Bulmer
       <div class="container">
         <!-- Row 1 of the Grid -->
         <div class="row">
-          <!-- columns 1-2 -->
+          <!-- columns 1-2. These contain the win-stars and dispaly them on correct answer -->
           <div class="col-2">
             <img
               src="./images/winstar.jpg"
@@ -76,9 +75,11 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- column 3 -->
+          <!-- column 3. It's just to the left of the grid, so when the bear is dragged
+		   over top of this column, it's out of the grid and it shows all of the images
+		   on dragover-->
           <div class="col-1" ondragover="showAllImages()"></div>
-          <!-- columns 4-5 -->
+          <!-- columns 4-5. Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -94,7 +95,7 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 6-7 -->
+          <!-- columns 6-7. Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -108,7 +109,7 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 8-9 -->
+          <!-- columns 8-9. Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -122,9 +123,10 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- column 10 -->
+          <!-- column 10. Similarly to column 3, it's the right edge of the grid and shows
+			all of the images when the bear is dragged over it. -->
           <div class="col-1" ondragover="showAllImages()"></div>
-          <!-- columns 11-12 -->
+          <!-- columns 11-12. These contain the lose-flowers to be displayed on an incorrect response.-->
           <div class="col-2">
             <img
               src="./images/loseflower.jpg"
@@ -137,7 +139,7 @@ Author: Caleb Bulmer
 
         <!-- Row 2 of the Grid -->
         <div class="row">
-          <!-- columns 1-2 -->
+          <!-- columns 1-2. This holds the congratulations text to be displayed on correct response -->
           <div class="col-2">
             <div class="infoTextHolder">
               <p class="infoText" id="wintext" draggable="false">
@@ -153,9 +155,11 @@ Author: Caleb Bulmer
               />
             </div>
           </div>
-          <!-- column 3-->
+          <!-- column 3. It's just to the left of the grid, so when the bear is dragged
+		   over top of this column, it's out of the grid and it shows all of the images
+		   on dragover-->
           <div class="col-1" ondragover="showAllImages()"></div>
-          <!-- columns 4-5 -->
+          <!-- columns 4-5. Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -169,7 +173,7 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 6-7 -->
+          <!-- columns 6-7. Game images. -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -183,7 +187,7 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 8-9-->
+          <!-- columns 8-9. Game images-->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -197,9 +201,10 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- column 10 -->
+          <!-- column 10. Similarly to column 3, it is a blank column
+			designed to just show the images when the bear is dragged over it-->
           <div class="col-1" ondragover="showAllImages()"></div>
-          <!-- columns 11-12 -->
+          <!-- columns 11-12. Displays the lose message on incorrect response -->
           <div class="col-2">
             <div class="infoTextHolder">
               <p class="infoText" id="losetext" draggable="false">
@@ -210,7 +215,7 @@ Author: Caleb Bulmer
         </div>
         <!-- Row 3 of the Grid -->
         <div class="row">
-          <!-- columns 1-2 -->
+          <!-- columns 1-2. Displays the star on a correct response -->
           <div class="col-2">
             <img
               src="./images/winstar.jpg"
@@ -219,9 +224,11 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- column 3 -->
+           <!-- column 3. It's just to the left of the grid, so when the bear is dragged
+		   over top of this column, it's out of the grid and it shows all of the images
+		   on dragover-->
           <div class="col-1" ondragover="showAllImages()"></div>
-          <!-- columns 4-5 -->
+          <!-- columns 4-5. Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -235,7 +242,7 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 6-7 -->
+          <!-- columns 6-7.Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -249,7 +256,7 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 8-9 -->
+          <!-- columns 8-9. Game images -->
           <div
             class="col-2"
             ondrop="drop(event)"
@@ -263,9 +270,10 @@ Author: Caleb Bulmer
               draggable="false"
             />
           </div>
-          <!-- columns 10 -->
+            <!-- column 10. Similarly to column 3, it is a blank column
+			designed to just show the images when the bear is dragged over it-->
           <div class="col-1" ondragover="showAllImages()"></div>
-          <!-- columns 11-12 -->
+          <!-- columns 11-12. Displays the sunflower on incorrect response -->
           <div class="col-2">
             <img
               src="./images/loseflower.jpg"
