@@ -28,7 +28,7 @@ Author: Caleb Bulmer: Final audio integration and JS integration
     <link rel="stylesheet" href="./css/P3.css" />
     <!-- make the JavaScript file available to this file -->
     <script src="./scripts/P3.js"></script>
-	<script src="./scripts/servercode.js></script>
+	<script src="./scripts/servercode.js"></script>
 	<!-- The sound files that play when the user clicks the volume button -->
     <audio src="./audios/aqq.wav" preload="auto" id="audio_aqq"></audio>
     <audio src="./audios/eliey.wav" preload="auto" id="audio_eliey"></audio>
@@ -53,13 +53,16 @@ Author: Caleb Bulmer: Final audio integration and JS integration
       />
       <!--The current word being displayed for the user-->
       <div id="currWord">
-        <img src="./images/blank.jpg" id="currWordImg" draggable="false" />
-      </div>
-      <!--The restart button for the game. Not always visible, and in fact, starts invisible-->
-      <p id="restart" onclick="restartGame()">
+        <img src="./images/blank.jpg" id="currWordImg" draggable="false" style="display:none"/> 
+		<p id="restart" onclick="restartGame()">
+		<!-- Either the current word or the restart button or the click your score prompt will be visible, so we can put them in the same div -->
         si'owa'si?
       </p>
-      <div></div> <!-- Empty div for centering purposes. Do not delete -->
+	  <p id="clickYourScore" draggable="false">
+	    click your score:
+	  </p>
+      </div>
+      <div id="scoreHolder"><span id="scoreDisplay">99/99</span></div> <!--Should start invisible but for testing purposes is currently visible-->
     </div>
     <!-- grid class-->
     <div id="grid">
