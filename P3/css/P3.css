@@ -3,7 +3,6 @@
    Author: Ben Le: Added Comic Sans font support and glitch fixing
 */
 
-
 /* Place for CSS variables *********************************/
 :root {
   --distanceFromTop: 9.68rem;
@@ -45,18 +44,29 @@ p {
 }
 
 #restart {
-	font-size: var(--titleSize);
+  font-size: var(--titleSize);
 }
 
 #clickYourScore {
-	font-size: 3rem;
-	position: relative;
-	top: 3rem;
-	left: 5rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  position: relative;
+  top: 3rem;
+  left: 15rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
+}
+
+#clickYourScore:hover {
+  cursor: pointer;
+}
+
+#scoreHolder {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 #volumeButton {
-  visibility: hidden; /*non-interactable and doesn't show, but still there for spacing purposes*/
+  /* visibility: hidden; non-interactable and doesn't show, but still there for spacing purposes */
   display: inline;
   width: var(--titleSize); /*Make it as tall as the rest of the title bar*/
   height: var(--titleSize);
@@ -68,10 +78,11 @@ p {
 }
 
 #currWord {
-  display: block;
   font-size: calc(var(--titleSize) - 1rem);
   position: relative;
-  left: calc(var(--titleSize) * -0.4);
+  left: calc(
+    var(--titleSize) * -2.4
+  ); /* had to change in order to center the word */
   /*Centers it better in the presence of the volume button*/
 }
 
@@ -125,4 +136,3 @@ p {
   top: calc(50% - 1.5rem);
   left: 0.3rem;
 }
-
