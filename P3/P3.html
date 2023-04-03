@@ -28,8 +28,8 @@ Author: Caleb Bulmer: Final audio integration and JS integration
     <link rel="stylesheet" href="./css/P3.css" />
     <!-- make the JavaScript file available to this file -->
     <script src="./scripts/P3.js"></script>
-	<script src="./scripts/servercode.js"></script>
-	<!-- The sound files that play when the user clicks the volume button -->
+    <script src="./scripts/servercode.js"></script>
+    <!-- The sound files that play when the user clicks the volume button -->
     <audio src="./audios/aqq.wav" preload="auto" id="audio_aqq"></audio>
     <audio src="./audios/eliey.wav" preload="auto" id="audio_eliey"></audio>
     <audio src="./audios/kesalk.wav" preload="auto" id="audio_kesalk"></audio>
@@ -42,27 +42,29 @@ Author: Caleb Bulmer: Final audio integration and JS integration
   </head>
 
   <!-- Runs the code to set up and start the game on page load-->
-  <body onload="initialize()" draggable="false">
+  <body draggable="false">
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
     <div class="title" ondragover="showAllImages()">
       <img
         id="volumeButton"
         src="./images/vol.jpg"
         draggable="false"
+        style="display: none"
         onclick="playSound()"
       />
       <!--The current word being displayed for the user-->
-      <div id="currWord">
-        <img src="./images/blank.jpg" id="currWordImg" draggable="false" style="display:none"/> 
-		<p id="restart" onclick="restartGame()">
-		<!-- Either the current word or the restart button or the click your score prompt will be visible, so we can put them in the same div -->
+      <div id="currWord" style="display: none">
+        <img src="./images/blank.jpg" id="currWordImg" draggable="false" />
+      </div>
+      <p id="restart" onclick="restartGame()">
+        <!-- Either the current word or the restart button or the click your score prompt will be visible, so we can put them in the same div -->
         si'owa'si?
       </p>
-	  <p id="clickYourScore" draggable="false">
-	    click your score:
-	  </p>
-      </div>
-      <div id="scoreHolder"><span id="scoreDisplay">99/99</span></div> <!--Should start invisible but for testing purposes is currently visible-->
+      <p id="clickYourScore" draggable="false" onclick="initialize()">
+        click your score:
+      </p>
+      <div id="scoreHolder"><span id="scoreDisplay">0/0</span></div>
+      <!--Should start invisible but for testing purposes is currently visible-->
     </div>
     <!-- grid class-->
     <div id="grid">
@@ -228,7 +230,7 @@ Author: Caleb Bulmer: Final audio integration and JS integration
               draggable="false"
             />
           </div>
-           <!-- column 3. It's just to the left of the grid, so when the bear is dragged
+          <!-- column 3. It's just to the left of the grid, so when the bear is dragged
 		   over top of this column, it's out of the grid and it shows all of the images
 		   on dragover-->
           <div class="col-1" ondragover="showAllImages()"></div>
@@ -274,7 +276,7 @@ Author: Caleb Bulmer: Final audio integration and JS integration
               draggable="false"
             />
           </div>
-            <!-- column 10. Similarly to column 3, it is a blank column
+          <!-- column 10. Similarly to column 3, it is a blank column
 			designed to just show the images when the bear is dragged over it-->
           <div class="col-1" ondragover="showAllImages()"></div>
           <!-- columns 11-12. Displays the sunflower on incorrect response -->
