@@ -13,7 +13,12 @@ const IMAGE_IDS = [
 ];
 
 //global variables
-let correctAnswer, imageDroppedOn, allowGuesses, isCorrect;
+let correctAnswer,
+  imageDroppedOn,
+  allowGuesses,
+  isCorrect,
+  numOfCorrect = 0,
+  totalGuesses = 0;
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
@@ -21,6 +26,14 @@ let correctAnswer, imageDroppedOn, allowGuesses, isCorrect;
 // initialize(); //runs at page load because it's not in a function
 
 function initialize() {
+  //shows the start score
+  document.getElementById("scoreHolder").style.display = "none";
+  document.getElementById("clickYourScore").style.display = "none";
+
+  //shows the current word and volume button
+  document.getElementById("volumeButton").style.display = "block";
+  document.getElementById("currWord").style.display = "block";
+
   getRandomWords();
   allowGuesses = true;
 }
@@ -33,6 +46,7 @@ function initialize() {
  * Author: JC Blais: Wrote code to display images for winning or losing
  */
 function checkAnswer(decision) {
+  totalGuesses++; // updates the total guesses everytime a answer is checked
   if (decision === correctAnswer) {
     isCorrect = true;
 
@@ -46,8 +60,11 @@ function checkAnswer(decision) {
     //hides the current word
     document.getElementById("currWord").style.display = "none";
     //shows the restart button
+
     document.getElementById("restart").style.display = "block";
     document.getElementById("restart").style.margin = "auto";
+
+    numOfCorrect++; // updates the number of correct guesses
   } else {
     isCorrect = false;
 
@@ -58,7 +75,7 @@ function checkAnswer(decision) {
 
     //hides the volume button
     document.getElementById("volumeButton").style.display = "none";
-    //hides the current word
+    //hides the current currWord
     document.getElementById("currWord").style.display = "none";
     //shows the restart button
     document.getElementById("restart").style.display = "block";
@@ -197,9 +214,8 @@ function getRandomWords() {
 
 /**
  * This function restarts the table by setting allowGuesses
- * to true, rolling a new random int to represent as the
- * new word, and resetting the table to its original
- * position.
+ * to true, resetting the table to its original
+ * position, and updates Scoreboard.
  *
  * Author: Caleb Bulmer: Initial function logic
  * Author: Baxter Madore: Added code to return the bear to its holder
@@ -211,9 +227,6 @@ function restartGame() {
 
   document.getElementById("bearHolder").innerHTML =
     "<img src='./images/bear.jpg' id='bear' ondragstart='drag(event)'>";
-
-  //show the volume button
-  document.getElementById("volumeButton").style.display = "block";
 
   //hide the text
   document.getElementById("wintext").style.display = "none";
@@ -238,6 +251,42 @@ function restartGame() {
 
   //hides the restart button
   document.getElementById("restart").style.display = "none";
+
+  updateScoreboard();
+}
+
+/**
+ * This function updates and shows the updated scoreboard.
+ * Ben Le: main logic and function
+ */
+function updateScoreboard() {
+  //updates the scoreboard
+  document.getElementById("scoreDisplay").innerHTML =
+    numOfCorrect + "/" + totalGuesses;
+
+  //shows the updated score
+  document.getElementById("scoreHolder").style.display = "block";
+  document.getElementById("clickYourScore").style.display = "block";
+
+  // changes the onclick function from initialize() to continueScore()
+  document
+    .getElementById("clickYourScore")
+    .setAttribute("onClick", "javascript: continueGame();");
+}
+
+/**
+ * This fuction rollis a new random int to represent as the
+ * new word, and displays the new word.
+ * Ben Le: main logic and function
+ *
+ */
+function continueGame() {
+  //hides
+  document.getElementById("scoreHolder").style.display = "none";
+  document.getElementById("clickYourScore").style.display = "none";
+
+  document.getElementById("volumeButton").style.display = "block";
+  document.getElementById("currWord").style.display = "block";
 
   //shows the new random word
   document.getElementById("currWord").style.display = "block";
