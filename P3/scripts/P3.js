@@ -20,7 +20,8 @@ let correctAnswer,
   allowGuesses,
   isCorrect,
   numOfCorrect = 0,
-  numOfAttempts = 0;
+  numOfAttempts = 0,
+  scoreObj = {corrects:-5, attempts:-9}; //it refuses to believe this variable's existence????????
 
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
@@ -29,8 +30,7 @@ let correctAnswer,
 // initialize(); //runs at page load because it's not in a function
 
 function initialize() {
-  //shows the start score
-  document.getElementById("scoreHolder").style.display = "none";
+  //hides the start score
   document.getElementById("clickYourScore").style.display = "none";
 
   //shows the current word and volume button
@@ -84,7 +84,7 @@ function checkAnswer(decision) {
     document.getElementById("restart").style.display = "block";
     document.getElementById("restart").style.margin = "auto";
   }
-  //TODO: post the new score to the server
+  post()
 }
 
 /**
@@ -265,11 +265,11 @@ function restartGame() {
  */
 function updateScoreboard() {
   //updates the scoreboard
+  scoreObj = get() //should be an object with two fields, "corrects" and "attempts"
   document.getElementById("scoreDisplay").innerHTML =
-    numOfCorrect + "/" + totalGuesses;
+  scoreObj.corrects + "/" + scoreObj.attempts;
 
   //shows the updated score
-  document.getElementById("scoreHolder").style.display = "block";
   document.getElementById("clickYourScore").style.display = "block";
 
   // changes the onclick function from initialize() to continueScore()
@@ -305,11 +305,13 @@ function continueGame() {
   server at the relative endpoint /myPost.
 
   Author: Terry Goldsmith
+  Author: Baxter Madore - Modified code to work with score object
 */
 function post() {
   console.log("we be posting");
   // define the object to be posted
-  let score = { corrects: numOfCorrects, attempts: numOfAttempts };
+  let score = { corrects: numOfCorrect, attempts: numOfAttempts };
+  console.log("score object: " + score)
 
   // if (the middleware for this endpoint ran without error)
   //   call successFn
@@ -323,6 +325,7 @@ function post() {
   server at the relative endpoint /myGet.
 
   Author: Terry Goldsmith
+  Author: Baxter Madore - Modified code to work with score object
 */
 function get() {
   console.log("we be getting")	
@@ -331,7 +334,7 @@ function get() {
   //   call successFn
   // else
   //   call errorFn
-  $.get(SERVER_URL, successFn).fail(errorFn);
+  return $.get(SERVER_URL, successFn).fail(errorFn);
 }
 
 /*
