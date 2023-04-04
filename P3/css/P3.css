@@ -43,10 +43,6 @@ p {
   user-select: none;
 }
 
-#restart {
-  font-size: var(--titleSize);
-}
-
 #clickYourScore {
   font-weight: bold;
   font-size: 3rem;
@@ -56,7 +52,7 @@ p {
 }
 
 #scoreDisplay {
-	font-size: var(--titleSize);
+  font-size: var(--titleSize);
 }
 
 #scoreHolder {
@@ -88,8 +84,8 @@ p {
 #restart {
   font-family: "Comic Sans MS";
   font-weight: bold;
-  color: black;
   display: none;
+  font-size: var(--titleSize);
 }
 
 /* class based styles **************************************/
@@ -132,6 +128,6 @@ p {
 }
 
 .clickable:hover {
-	cursor: pointer;
-	color: magenta;
+  cursor: pointer;
+  color: magenta;
 }
