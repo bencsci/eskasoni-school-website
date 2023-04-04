@@ -48,16 +48,15 @@ p {
 }
 
 #clickYourScore {
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 3rem;
   position: relative;
-  top: 3rem;
-  left: 15rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
+  top: 2rem;
+  left: 19.5rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
 }
 
-#clickYourScore:hover {
-  cursor: pointer;
+#scoreDisplay {
+	font-size: var(--titleSize);
 }
 
 #scoreHolder {
@@ -66,7 +65,7 @@ p {
 }
 
 #volumeButton {
-  /* visibility: hidden; non-interactable and doesn't show, but still there for spacing purposes */
+  visibility: hidden; /*non-interactable and doesn't show, but still there for spacing purposes */
   display: inline;
   width: var(--titleSize); /*Make it as tall as the rest of the title bar*/
   height: var(--titleSize);
@@ -91,11 +90,6 @@ p {
   font-weight: bold;
   color: black;
   display: none;
-}
-
-#restart:hover {
-  cursor: pointer;
-  color: magenta;
 }
 
 /* class based styles **************************************/
@@ -135,4 +129,9 @@ p {
   position: relative; /*center the text vertically*/
   top: calc(50% - 1.5rem);
   left: 0.3rem;
+}
+
+.clickable:hover {
+	cursor: pointer;
+	color: magenta;
 }

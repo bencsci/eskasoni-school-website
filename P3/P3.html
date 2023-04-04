@@ -24,11 +24,13 @@ Author: Caleb Bulmer: Final audio integration and JS integration
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- Make P1.css accessible to this file -->
+    <!-- Make P3.css accessible to this file -->
     <link rel="stylesheet" href="./css/P3.css" />
-    <!-- make the JavaScript file available to this file -->
+    <!-- make the JavaScript files available to this page, including jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"</script>
     <script src="./scripts/P3.js"></script>
     <script src="./scripts/servercode.js"></script>
+	
     <!-- The sound files that play when the user clicks the volume button -->
     <audio src="./audios/aqq.wav" preload="auto" id="audio_aqq"></audio>
     <audio src="./audios/eliey.wav" preload="auto" id="audio_eliey"></audio>
@@ -56,15 +58,14 @@ Author: Caleb Bulmer: Final audio integration and JS integration
       <div id="currWord" style="display: none">
         <img src="./images/blank.jpg" id="currWordImg" draggable="false" />
       </div>
-      <p id="restart" onclick="restartGame()">
-        <!-- Either the current word or the restart button or the click your score prompt will be visible, so we can put them in the same div -->
+      <p id="restart" onclick="restartGame()" class="clickable">
+        <!-- Either the current word or the restart button will be visible, so we can put them in the same div -->
         si'owa'si?
       </p>
-      <p id="clickYourScore" draggable="false" onclick="initialize()">
-        click your score:
-      </p>
-      <div id="scoreHolder"><span id="scoreDisplay">0/0</span></div>
-      <!--Should start invisible but for testing purposes is currently visible-->
+      <div>     
+	  <p id="clickYourScore" draggable="false" onclick="initialize()" class="clickable">
+        click your score: <span id="scoreDisplay">0/0</span>
+      </p></div>
     </div>
     <!-- grid class-->
     <div id="grid">

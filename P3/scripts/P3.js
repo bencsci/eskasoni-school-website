@@ -18,7 +18,7 @@ let correctAnswer,
   allowGuesses,
   isCorrect,
   numOfCorrect = 0,
-  totalGuesses = 0;
+  numOfAttempts = 0;
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
@@ -81,6 +81,7 @@ function checkAnswer(decision) {
     document.getElementById("restart").style.display = "block";
     document.getElementById("restart").style.margin = "auto";
   }
+  //TODO: post the new score to the server
 }
 
 /**
@@ -252,7 +253,7 @@ function restartGame() {
   //hides the restart button
   document.getElementById("restart").style.display = "none";
 
-  updateScoreboard();
+  updateScoreboard(); //do we just change this to window.reload() ? 
 }
 
 /**
