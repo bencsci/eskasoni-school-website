@@ -12,6 +12,8 @@ const IMAGE_IDS = [
   "wiktm",
 ];
 
+const SERVER_URL = "http://ugdev.cs.smu.ca:3737";
+
 //global variables
 let correctAnswer,
   imageDroppedOn,
@@ -19,6 +21,7 @@ let correctAnswer,
   isCorrect,
   numOfCorrect = 0,
   numOfAttempts = 0;
+
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
@@ -46,7 +49,7 @@ function initialize() {
  * Author: JC Blais: Wrote code to display images for winning or losing
  */
 function checkAnswer(decision) {
-  totalGuesses++; // updates the total guesses everytime a answer is checked
+  numOfAttempts++; // updates the total guesses everytime a answer is checked
   if (decision === correctAnswer) {
     isCorrect = true;
 
@@ -292,4 +295,67 @@ function continueGame() {
   //shows the new random word
   document.getElementById("currWord").style.display = "block";
   getRandomWords();
+}
+
+
+/****************************************************** SERVER CODE ***************************/
+
+/*
+  The purpose of this function is to POST a JSON object to the
+  server at the relative endpoint /myPost.
+
+  Author: Terry Goldsmith
+*/
+function post() {
+  console.log("we be posting");
+  // define the object to be posted
+  let score = { corrects: numOfCorrects, attempts: numOfAttempts };
+
+  // if (the middleware for this endpoint ran without error)
+  //   call successFn
+  // else
+  //   call errorFn
+  $.post(SERVER_URL, score, successFn).fail(errorFn);
+}
+
+/*
+  The purpose of this function is to GET a JSON object from the
+  server at the relative endpoint /myGet.
+
+  Author: Terry Goldsmith
+*/
+function get() {
+  console.log("we be getting")	
+  // attempt to GET the score back from the server. 
+  // if (the middleware for this endpoint ran without error)
+  //   call successFn
+  // else
+  //   call errorFn
+  $.get(SERVER_URL, successFn).fail(errorFn);
+}
+
+/*
+  The purpose of this function is to log the JSON object received
+  from the server.
+
+  returnedData - contains the JSON object returned by the server
+
+  Author: Terry Goldsmith
+*/
+
+function successFn(returnedData) {
+  console.log("yay the success function! don't know what exactly succeeded but the function did!")
+  console.log(returnedData);
+}
+
+/*
+  The purpose of this function is to log the error.
+
+  err - the error object returned by the server
+
+  Author: Terry Goldsmith
+*/
+function errorFn(err) {
+  console.log("oh no it crashed and failed error oh no!!!!!!!!!!!")
+  console.log(err.responseText);
 }
