@@ -267,14 +267,15 @@ function restartGame() {
  * Ben Le: main logic and function
  */
 function updateScoreboard() {
-  
+  scoreObj = get();
   //updates the scoreboard
-  console.log("The score object in question: " + get())
+  console.log("The score object in question: " + JSON.stringify(scoreObj))
   document.getElementById("scoreDisplay").innerHTML =
-  numOfCorrect + "/" + numOfAttempts;
+  scoreObj["corrects"] + "/" + scoreObj["attempts"];
 
   //shows the updated score
   document.getElementById("clickYourScore").style.display = "block";
+  document.getElementById("scoreDisplay").style.display = "block";
 
   // changes the onclick function from initialize() to continueScore()
   document
@@ -290,7 +291,7 @@ function updateScoreboard() {
  */
 function continueGame() {
   //hides
-  document.getElementById("scoreHolder").style.display = "none";
+  document.getElementById("scoreDisplay").style.display = "none";
   document.getElementById("clickYourScore").style.display = "none";
 
   document.getElementById("volumeButton").style.display = "block";
@@ -321,7 +322,7 @@ function post() {
   //   call successFn
   // else
   //   call errorFn
-  $.post(SERVER_URL, score, successFn).fail(errorFn);
+  $.post(SERVER_URL, score, postSuccess).fail(errorFn);
 }
 
 /*
@@ -339,6 +340,7 @@ function get() {
   // else
   //   call errorFn
   $.get(SERVER_URL, getSuccess).fail(errorFn);
+  return scoreObj;
 }
 
 /*
@@ -352,7 +354,7 @@ function get() {
 
 function postSuccess(returnedData) {
   console.log("post has succeeded")
-  console.log("returned data: " + returnedData);
+  console.log("returned data: " + JSON.stringify(returnedData));
   return returnedData;
 }
 
@@ -369,6 +371,7 @@ function errorFn(err) {
 }
 
 function getSuccess(returnedData) {
-	console.log("get has succeeded \n returned data: " + returnedData);
+	console.log("get has succeeded \n returned data: " + JSON.stringify(returnedData));
+  scoreObj = returnedData;
 	return returnedData;
 }
