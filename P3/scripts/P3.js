@@ -15,21 +15,22 @@ const IMAGE_IDS = [
 const SERVER_URL = "http://ugdev.cs.smu.ca:3737";
 
 //global variables
-let correctAnswer,
-  imageDroppedOn,
-  allowGuesses,
-  isCorrect,
-  numOfCorrect = 0,
-  numOfAttempts = 0,
-  scoreObj = {corrects:-5, attempts:-9}; //it refuses to believe this variable's existence????????
-
+let correctAnswer, // holds the name of the current word to be used to check the corrrect answer
+  imageDroppedOn, // holds the name of the image that the bear was dropped on
+  allowGuesses, // boolean to allow the user to guess/drop the bear on images
+  isCorrect, // boolean to check if the user got the correct answer or not
+  numOfCorrect = 0, // number of correct guesses
+  numOfAttempts = 0, //number of total attempts
+  scoreObj = { corrects: 0, attempts: 0 }; //it refuses to believe this variable's existence????????
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
 
 // initialize(); //runs at page load because it's not in a function
 
-$(document).ready(updateScoreboard()) 
+$(document).ready(post());
+//run post at the start to reset number of correct and total attempts to 0
+//$(document).ready(updateScoreboard());
 //runs the updatescoreboard code when the page is fully loaded
 
 function initialize() {
@@ -87,7 +88,11 @@ function checkAnswer(decision) {
     document.getElementById("restart").style.display = "block";
     document.getElementById("restart").style.margin = "auto";
   }
-  post()
+
+  // needed to add this because sometimes the bear wouldn't disappear when the winstars displayed
+  document.getElementById("bearHolder").innerHTML = "";
+
+  post();
 }
 
 /**
@@ -96,6 +101,7 @@ function checkAnswer(decision) {
  * @param max is the number of which a random number can be picked from
  * @return a random int
  *
+ * Author: Sarch Derby: orginal code
  * Author: JC Blais: Initial function logic
  */
 function randomInt(max) {
@@ -206,7 +212,8 @@ function playSound() {
  * Author: Ben Le: Initial logic and control flow
  */
 function getRandomWords() {
-  let randomNum = randomInt(9);
+  const max = 9;
+  let randomNum = randomInt(max);
 
   //for testing purposes
   console.log("randomWord=" + randomNum);
@@ -230,7 +237,7 @@ function getRandomWords() {
  * Author: Ben Le: Added code to display another random word
  */
 function restartGame() {
-  allowGuesses = true;
+  allowGuesses = false;
 
   document.getElementById("bearHolder").innerHTML =
     "<img src='./images/bear.jpg' id='bear' ondragstart='drag(event)'>";
@@ -259,7 +266,9 @@ function restartGame() {
   //hides the restart button
   document.getElementById("restart").style.display = "none";
 
-  updateScoreboard(); //do we just change this to window.reload() ? 
+  updateScoreboard(); //do we just change this to window.reload() ?
+
+  // allowGuesses = false;
 }
 
 /**
@@ -267,16 +276,13 @@ function restartGame() {
  * Ben Le: main logic and function
  */
 function updateScoreboard() {
-  scoreObj = get();
   //updates the scoreboard
-  console.log("The score object in question: " + JSON.stringify(scoreObj))
-  //I put these two lines in the getSuccess() function and its working for some reason 
-  //document.getElementById("scoreDisplay").innerHTML =
-  //scoreObj["corrects"] + "/" + scoreObj["attempts"];
+  console.log("The score object in question: " + get());
+  document.getElementById("scoreDisplay").innerHTML =
+    numOfCorrect + "/" + numOfAttempts;
 
   //shows the updated score
   document.getElementById("clickYourScore").style.display = "block";
-  document.getElementById("scoreDisplay").style.display = "block";
 
   // changes the onclick function from initialize() to continueScore()
   document
@@ -291,25 +297,23 @@ function updateScoreboard() {
  *
  */
 function continueGame() {
-  //hides
-  document.getElementById("scoreDisplay").style.display = "none";
+  allowGuesses = true;
+
+  //hides score
   document.getElementById("clickYourScore").style.display = "none";
 
   document.getElementById("volumeButton").style.display = "block";
-  document.getElementById("currWord").style.display = "block";
 
   //shows the new random word
   document.getElementById("currWord").style.display = "block";
   getRandomWords();
 }
 
-
 /****************************************************** SERVER CODE ***************************/
 
 /*
   The purpose of this function is to POST a JSON object to the
   server at the relative endpoint /myPost.
-
   Author: Terry Goldsmith
   Author: Baxter Madore - Modified code to work with score object
 */
@@ -317,7 +321,7 @@ function post() {
   console.log("we be posting");
   // define the object to be posted
   let score = { corrects: numOfCorrect, attempts: numOfAttempts };
-  console.log("score object: " + score)
+  console.log("score object: " + score);
 
   // if (the middleware for this endpoint ran without error)
   //   call postSuccess
@@ -329,13 +333,12 @@ function post() {
 /*
   The purpose of this function is to GET a JSON object from the
   server at the relative endpoint /myGet.
-
   Author: Terry Goldsmith
   Author: Baxter Madore - Modified code to work with score object
 */
 function get() {
-  console.log("we be getting")	
-  // attempt to GET the score back from the server. 
+  console.log("we be getting");
+  // attempt to GET the score back from the server.
   // if (the middleware for this endpoint ran without error)
   //   call getSuccess
   // else
@@ -346,42 +349,38 @@ function get() {
 /*
   The purpose of this function is to log the JSON object received
   from the server.
-
   returnedData - contains the JSON object returned by the server
-
   Author: Terry Goldsmith
 */
 function postSuccess(returnedData) {
-  console.log("post has succeeded")
+  console.log("post has succeeded");
   console.log("returned data: " + JSON.stringify(returnedData));
   return returnedData;
 }
 
 /*
   The purpose of this function is to log the error.
-
   err - the error object returned by the server
-
   Author: Terry Goldsmith
 */
 function errorFn(err) {
-  console.log("oh no it crashed and failed error oh no!!!!!!!!!!!")
+  console.log("oh no it crashed and failed error oh no!!!!!!!!!!!");
   console.log(err.responseText);
 }
 
 /*
   The purpose of this function is to log the JSON object received
   from the server.
-
   returnedData - contains the JSON object returned by the server
-
   Author: Terry Goldsmith
   Author: Caleb Bulmer: scoreDisplay element is updated using returnedData
 */
 function getSuccess(returnedData) {
-	console.log("get has succeeded \n returned data: " + JSON.stringify(returnedData));
-  scoreObj = returnedData;
+  console.log(
+    "get has succeeded \n returned data: " + JSON.stringify(returnedData)
+  );
+  // scoreObj = returnedData;
   document.getElementById("scoreDisplay").innerHTML =
-  returnedData["corrects"] + "/" + returnedData["attempts"];
-	return returnedData;
+    returnedData["corrects"] + "/" + returnedData["attempts"];
+  return returnedData;
 }
