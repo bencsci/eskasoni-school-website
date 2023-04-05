@@ -1,5 +1,24 @@
+/**
+ * Contains both local and client-side functions for the Mi'kmaq language game.
+ * Also handles drag-and-drop functionality so that the image of the bear can persist in its 
+ * dropped location and its dropped location can be checked against the correct answer. 
+ * The client-side functions transmit the score to and from the server so that the score can 
+ * persist between refreshed until the server is closed. 
+ * 
+ * Author: Baxter Madore
+ * Author: Ben Le
+ * Author: Caleb Bulmer
+ * Author: JC Blais
+ *
+ */
+
+
+
+/*******************************GLOBAL CONSTANTS*/
+
 //The images representing miqmaq words, as their HTML ids.
 //If you need the file names, just append ".jpg" to any of them
+
 const IMAGE_IDS = [
   "aqq",
   "eliey",
@@ -12,37 +31,24 @@ const IMAGE_IDS = [
   "wiktm",
 ];
 
-const SERVER_URL = "http://ugdev.cs.smu.ca:3737";
+const SERVER_URL = "http://ugdev.cs.smu.ca:3737"; 
 
-//global variables
+/******************************global variables*/
 let correctAnswer, // holds the name of the current word to be used to check the corrrect answer
   imageDroppedOn, // holds the name of the image that the bear was dropped on
   allowGuesses, // boolean to allow the user to guess/drop the bear on images
   isCorrect, // boolean to check if the user got the correct answer or not
   numOfCorrect = 0, // number of correct guesses
   numOfAttempts = 0, //number of total attempts
-  scoreObj = { corrects: 0, attempts: 0 }; //it refuses to believe this variable's existence????????
+  scoreObj = { corrects: 0, attempts: 0 };
 
 /*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
-
-// initialize(); //runs at page load because it's not in a function
 
 $(document).ready(get());
 //run get at the start so that the client variables are correctly synced with the server variables. 
 $(document).ready(updateScoreboard());
 //update the scoreboard with the just-fetched variables. 
-
-function initialize() {
-  //hides the start score
-  document.getElementById("clickYourScore").style.display = "none";
-  //shows the current word and volume button
-  document.getElementById("volumeButton").style.display = "block";
-  document.getElementById("currWord").style.display = "block";
-
-  getRandomWords();
-  allowGuesses = true;
-}
 
 /**
  * This function will check if the image dropped is correct and show the fail/win images.
@@ -317,11 +323,8 @@ function continueGame() {
   Author: Baxter Madore - Modified code to work with score object
 */
 function post() {
-  console.log("we be posting");
   // define the object to be posted
   let score = { corrects: numOfCorrect, attempts: numOfAttempts };
-  console.log("score object: " + score);
-
   // if (the middleware for this endpoint ran without error)
   //   call postSuccess
   // else
@@ -336,7 +339,6 @@ function post() {
   Author: Baxter Madore - Modified code to work with score object
 */
 function get() {
-  console.log("we be getting");
   // attempt to GET the score back from the server.
   // if (the middleware for this endpoint ran without error)
   //   call getSuccess
@@ -352,8 +354,6 @@ function get() {
   Author: Terry Goldsmith
 */
 function postSuccess(returnedData) {
-  console.log("post has succeeded");
-  console.log("returned data: " + JSON.stringify(returnedData));
   return returnedData;
 }
 
@@ -375,11 +375,9 @@ function errorFn(err) {
   Author: Caleb Bulmer: scoreDisplay element is updated using returnedData
 */
 function getSuccess(returnedData) {
-  console.log(
-    "get has succeeded \n returned data: " + JSON.stringify(returnedData)
-  );
-  // scoreObj = returnedData;
   document.getElementById("scoreDisplay").innerHTML =
     returnedData["corrects"] + "/" + returnedData["attempts"];
+	numOfCorrect = returnedData["corrects"];
+	numOfAttempts = returnedData["attempts"];
   return returnedData;
 }

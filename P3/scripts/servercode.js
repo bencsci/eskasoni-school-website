@@ -1,14 +1,16 @@
-/*
-  The purpose of this file is to create a very basic Express framework
-  server that has 2 endpoints:
-            one for a GET request and one for a POST request
-  Note: You must run "npm install express" once in the public_html
-        folder first. You do not need to repeat this step for
-        different servers.
-  Author: Terry Goldsmith
+/* The purpose of this file is to use the Express API to store the score of the player
+ * playing the Mi'kmaq language game on the SMU CS/Math server, so that it can 
+ * be retrieved and persist across different browsers and refreshes. The score is initialized to 0/0 
+ * on server reload, and if the server is turned off mid-game, the score continues operating locally until 
+ * the page is refreshed or the server restarts. 
+ *
+ * Author: Terry Goldsmith 
+ * Author: Baxter Madore
+ * Author: Ben Le
+ *
 */
 
-// start the Express framework and make it accessible via the reference
+// start the Express framework and make it accessible via the reference (global constant, might not actually work)
 const express = require("express");
 
 // define the top level Express function
@@ -16,7 +18,10 @@ const server = express();
 
 // set the port where the server listens for clients
 const port = 3737;
+
+//corrects is the number of times that the user successfully chose the word since the server was started
 let corrects = 0;
+//attempts
 let attempts = 0;
 
 // enable the server to recognize JSON format
@@ -64,9 +69,6 @@ server.use(allowCrossDomain);
   Author: Terry Goldsmith
 */
 server.post("/", function (req, res) {
-  // log the "value" in the "name":"value" pair received
-  console.log("req.body.corrects:" + req.body.corrects);
-  console.log("req.body.attempts:" + req.body.attempts);
   // define a new JSON object to be returned
   corrects = req.body.corrects;
   attempts = req.body.attempts;
@@ -101,7 +103,6 @@ server.get("/", function (req, res) {
   // place your new JSON object into the response object
   // return the response object terminating the
   //     request/response cycle so next() is not required
-  console.log("returning::: " + JSON.stringify(fullScore));
   return res.status(200).send(fullScore);
 });
 
