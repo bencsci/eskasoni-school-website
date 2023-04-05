@@ -270,8 +270,8 @@ function updateScoreboard() {
   scoreObj = get();
   //updates the scoreboard
   console.log("The score object in question: " + JSON.stringify(scoreObj))
-  document.getElementById("scoreDisplay").innerHTML =
-  scoreObj["corrects"] + "/" + scoreObj["attempts"];
+  //document.getElementById("scoreDisplay").innerHTML =
+  //scoreObj["corrects"] + "/" + scoreObj["attempts"];
 
   //shows the updated score
   document.getElementById("clickYourScore").style.display = "block";
@@ -340,7 +340,6 @@ function get() {
   // else
   //   call errorFn
   $.get(SERVER_URL, getSuccess).fail(errorFn);
-  return scoreObj;
 }
 
 /*
@@ -351,7 +350,6 @@ function get() {
 
   Author: Terry Goldsmith
 */
-
 function postSuccess(returnedData) {
   console.log("post has succeeded")
   console.log("returned data: " + JSON.stringify(returnedData));
@@ -373,5 +371,11 @@ function errorFn(err) {
 function getSuccess(returnedData) {
 	console.log("get has succeeded \n returned data: " + JSON.stringify(returnedData));
   scoreObj = returnedData;
+  document.getElementById("scoreDisplay").innerHTML =
+  returnedData["corrects"] + "/" + returnedData["attempts"];
 	return returnedData;
+}
+
+function getScore(){
+  return scoreObj;
 }
