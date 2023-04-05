@@ -18,7 +18,7 @@
 
 //The images representing miqmaq words, as their HTML ids.
 //If you need the file names, just append ".jpg" to any of them
-
+//(global variable)
 const IMAGE_IDS = [
   "aqq",
   "eliey",
@@ -31,24 +31,25 @@ const IMAGE_IDS = [
   "wiktm",
 ];
 
+//global constant with the url of the server for get and post request
 const SERVER_URL = "http://ugdev.cs.smu.ca:3737"; 
 
 /******************************global variables*/
-let correctAnswer, // holds the name of the current word to be used to check the corrrect answer
+let correctAnswer, // holds the name of the current word displayed on the screen. used to check if the user's answer is correct
   imageDroppedOn, // holds the name of the image that the bear was dropped on
-  allowGuesses, // boolean to allow the user to guess/drop the bear on images
+  allowGuesses,
   isCorrect, // boolean to check if the user got the correct answer or not
   numOfCorrect = 0, // number of correct guesses
   numOfAttempts = 0, //number of total attempts
-  scoreObj = { corrects: 0, attempts: 0 };
 
-/*allowGuesses is a boolean which states if the user is allowed to place the bear anywhere.
+/*allowGuesses is a boolean which states if the user is allowed to place the bear somewhere.
   it is reset to true at the start of the round, and made false when the bear is dropped.*/
 
 $(document).ready(get());
-//run get at the start so that the client variables are correctly synced with the server variables. 
+//run get on page load so that the client variables are correctly synced with the server variables. 
 $(document).ready(updateScoreboard());
-//update the scoreboard with the just-fetched variables. 
+//update the scoreboard with the just-fetched variables. if no variables were just fetched
+//(likely due to the server not running), the scoreboard will display 0/0 at the start
 
 /**
  * This function will check if the image dropped is correct and show the fail/win images.
@@ -106,7 +107,6 @@ function checkAnswer(decision) {
  * @param max is the number of which a random number can be picked from
  * @return a random int
  *
- * Author: Sarch Derby: orginal code
  * Author: JC Blais: Initial function logic
  */
 function randomInt(max) {
@@ -128,7 +128,8 @@ function drag(event) {
 
 /**
  * This function suspends default behaviour for a
- * potential new position for the bear. Target
+ * potential new position for the bear, allowing the bear to be dropped and 
+ * stay in the new location. Target
  * is the potential element where the bear could be
  * dropped.
  *
@@ -142,11 +143,9 @@ function drag(event) {
 function allowDrop(event, image) {
   if (allowGuesses) {
     event.preventDefault();
-    // console logs are to see what is happening while program runs.
-    console.log(event.target.id);
     showAllImages();
-
-    document.getElementById(event.target.id).style.opacity = 0;
+    document.getElementById(event.target.id).style.opacity = 0; 
+	//hide the element that the bear is being hovered over
   }
 }
 
@@ -156,7 +155,7 @@ function allowDrop(event, image) {
  *
  * @param event the event object being loaded for drop
  *
- * Author: Caleb Bulmer
+ * Author: Caleb Bulmer: function logic and flow
  * Author: Ben Le: added code to show the bear when dropped
  * Author: Baxter Madore: Removed jQuery dependency
  */
@@ -168,9 +167,10 @@ function drop(event) {
   imageDroppedOn = event.target.id;
   console.log("ImgDroppedON: " + imageDroppedOn);
 
-  // makes the hidden bear visible
+  // makes the hidden bear behind the photo visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
-
+  
+  //makes the previously hidden bear non-draggable
   document
     .getElementById(event.target.id + "Bear")
     .setAttribute("draggable", "false");
@@ -219,15 +219,9 @@ function playSound() {
 function getRandomWords() {
   const max = 9;
   let randomNum = randomInt(max);
-
-  //for testing purposes
-  console.log("randomWord=" + randomNum);
-  console.log("./images/" + IMAGE_IDS[randomNum] + "Text.jpg");
-
   //sets the image to the image of the chosen word
   document.getElementById("currWordImg").src =
     "./images/" + IMAGE_IDS[randomNum] + "Text.jpg";
-
   correctAnswer = IMAGE_IDS[randomNum];
 }
 
@@ -267,32 +261,26 @@ function restartGame() {
   } else {
     document.getElementById(imageDroppedOn + "Bear").style.display = "none";
   }
-
+  
   //hides the restart button
   document.getElementById("restart").style.display = "none";
-
-  updateScoreboard(); //do we just change this to window.reload() ?
-
-  // allowGuesses = false;
+  //shows the new score
+  updateScoreboard();
 }
 
 /**
  * This function updates and shows the updated scoreboard.
+ * Note that if the server is non-functional, score is 
+ * still counted locally, at least until the server resets. 
  * Ben Le: main logic and function
  */
 function updateScoreboard() {
   //updates the scoreboard
-  console.log("The score object in question: " + get());
   document.getElementById("scoreDisplay").innerHTML =
     numOfCorrect + "/" + numOfAttempts;
 
   //shows the updated score
   document.getElementById("clickYourScore").style.display = "block";
-
-  // changes the onclick function from initialize() to continueScore()
-  document
-    .getElementById("clickYourScore")
-    .setAttribute("onClick", "javascript: continueGame();");
 }
 
 /**
@@ -317,8 +305,8 @@ function continueGame() {
 /****************************************************** SERVER CODE ***************************/
 
 /*
-  The purpose of this function is to POST a JSON object to the
-  server at the relative endpoint /myPost.
+  The purpose of this function is to POST the score (as a JSON object) to the 
+  server at ugdev.cs.smu.ca:3737 
   Author: Terry Goldsmith
   Author: Baxter Madore - Modified code to work with score object
 */
@@ -329,12 +317,12 @@ function post() {
   //   call postSuccess
   // else
   //   call errorFn
-  $.post(SERVER_URL, score, postSuccess).fail(errorFn);
+  $.post(SERVER_URL, score, postSuccess).fail(failFunc);
 }
 
 /*
-  The purpose of this function is to GET a JSON object from the
-  server at the relative endpoint /myGet.
+  The purpose of this function is to GET the score JSON object from the
+  server. 
   Author: Terry Goldsmith
   Author: Baxter Madore - Modified code to work with score object
 */
@@ -344,12 +332,13 @@ function get() {
   //   call getSuccess
   // else
   //   call errorFn
-  $.get(SERVER_URL, getSuccess).fail(errorFn);
+  $.get(SERVER_URL, getSuccess).fail(failFunc);
 }
 
 /*
-  The purpose of this function is to log the JSON object received
-  from the server.
+  The purpose of this function is to return the object which post returned.
+  Since it's in a callback, it is guaranteed to run AFTER the post() request has fully
+  completed. 
   returnedData - contains the JSON object returned by the server
   Author: Terry Goldsmith
 */
@@ -358,13 +347,13 @@ function postSuccess(returnedData) {
 }
 
 /*
-  The purpose of this function is to log the error.
-  err - the error object returned by the server
-  Author: Terry Goldsmith
+  failFunc fires whenever a post or get request fails. It will print a distinct
+  nessage to the console saying that there has been an error
+  Author: Baxter Madore - Initial log statement
 */
-function errorFn(err) {
-  console.log("oh no it crashed and failed error oh no!!!!!!!!!!!");
-  console.log(err.responseText);
+function failFunc() {
+  console.log("the server is likely not running. Sorry for that. The game " +
+			  "should still function normally.");
 }
 
 /*
