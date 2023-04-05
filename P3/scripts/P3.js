@@ -270,6 +270,7 @@ function updateScoreboard() {
   scoreObj = get();
   //updates the scoreboard
   console.log("The score object in question: " + JSON.stringify(scoreObj))
+  //I put these two lines in the getSuccess() function and its working for some reason 
   //document.getElementById("scoreDisplay").innerHTML =
   //scoreObj["corrects"] + "/" + scoreObj["attempts"];
 
@@ -319,7 +320,7 @@ function post() {
   console.log("score object: " + score)
 
   // if (the middleware for this endpoint ran without error)
-  //   call successFn
+  //   call postSuccess
   // else
   //   call errorFn
   $.post(SERVER_URL, score, postSuccess).fail(errorFn);
@@ -336,7 +337,7 @@ function get() {
   console.log("we be getting")	
   // attempt to GET the score back from the server. 
   // if (the middleware for this endpoint ran without error)
-  //   call successFn
+  //   call getSuccess
   // else
   //   call errorFn
   $.get(SERVER_URL, getSuccess).fail(errorFn);
@@ -368,14 +369,19 @@ function errorFn(err) {
   console.log(err.responseText);
 }
 
+/*
+  The purpose of this function is to log the JSON object received
+  from the server.
+
+  returnedData - contains the JSON object returned by the server
+
+  Author: Terry Goldsmith
+  Author: Caleb Bulmer: scoreDisplay element is updated using returnedData
+*/
 function getSuccess(returnedData) {
 	console.log("get has succeeded \n returned data: " + JSON.stringify(returnedData));
   scoreObj = returnedData;
   document.getElementById("scoreDisplay").innerHTML =
   returnedData["corrects"] + "/" + returnedData["attempts"];
 	return returnedData;
-}
-
-function getScore(){
-  return scoreObj;
 }
