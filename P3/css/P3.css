@@ -44,11 +44,12 @@ p {
 }
 
 #clickYourScore {
-  font-weight: bold;
+  font-weight: 850;
   font-size: 2rem;
   position: relative;
   top: 2rem;
-  left: 16rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
+  left: 14rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
+  /* color: black; */
 }
 
 #scoreDisplay {
@@ -128,11 +129,11 @@ p {
   left: 0.3rem;
 }
 
+.clickable {
+  color: black;
+}
+
 .clickable:hover {
   cursor: pointer;
   color: magenta;
-}
-
-.row {
-  height: 16rem;
 }
