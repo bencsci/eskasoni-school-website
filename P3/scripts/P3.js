@@ -29,6 +29,9 @@ let correctAnswer,
 
 // initialize(); //runs at page load because it's not in a function
 
+$(document).ready(updateScoreboard()) 
+//runs the updatescoreboard code when the page is fully loaded
+
 function initialize() {
   //hides the start score
   document.getElementById("clickYourScore").style.display = "none";
@@ -264,10 +267,11 @@ function restartGame() {
  * Ben Le: main logic and function
  */
 function updateScoreboard() {
+  
   //updates the scoreboard
-  scoreObj = get() //should be an object with two fields, "corrects" and "attempts"
+  console.log("The score object in question: " + get())
   document.getElementById("scoreDisplay").innerHTML =
-  scoreObj.corrects + "/" + scoreObj.attempts;
+  numOfCorrect + "/" + numOfAttempts;
 
   //shows the updated score
   document.getElementById("clickYourScore").style.display = "block";
@@ -334,7 +338,7 @@ function get() {
   //   call successFn
   // else
   //   call errorFn
-  return $.get(SERVER_URL, successFn).fail(errorFn);
+  $.get(SERVER_URL, getSuccess).fail(errorFn);
 }
 
 /*
@@ -346,9 +350,10 @@ function get() {
   Author: Terry Goldsmith
 */
 
-function successFn(returnedData) {
-  console.log("yay the success function! don't know what exactly succeeded but the function did!")
-  console.log(returnedData);
+function postSuccess(returnedData) {
+  console.log("post has succeeded")
+  console.log("returned data: " + returnedData);
+  return returnedData;
 }
 
 /*
@@ -361,4 +366,9 @@ function successFn(returnedData) {
 function errorFn(err) {
   console.log("oh no it crashed and failed error oh no!!!!!!!!!!!")
   console.log(err.responseText);
+}
+
+function getSuccess(returnedData) {
+	console.log("get has succeeded \n returned data: " + returnedData);
+	return returnedData;
 }
