@@ -45,10 +45,10 @@ p {
 
 #clickYourScore {
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 2rem;
   position: relative;
   top: 2rem;
-  left: 19.5rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
+  left: 16rem; /*this is super fragile and I'll try an actual fix when I'm more awake*/
 }
 
 #scoreDisplay {
@@ -61,7 +61,7 @@ p {
 }
 
 #volumeButton {
-  visibility: hidden; /*non-interactable and doesn't show, but still there for spacing purposes */
+  /* visibility: hidden; non-interactable and doesn't show, but still there for spacing purposes */
   display: inline;
   width: var(--titleSize); /*Make it as tall as the rest of the title bar*/
   height: var(--titleSize);
