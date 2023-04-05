@@ -377,7 +377,5 @@ function errorFn(err) {
 function getSuccess(returnedData) {
   document.getElementById("scoreDisplay").innerHTML =
     returnedData["corrects"] + "/" + returnedData["attempts"];
-	numOfCorrect = returnedData["corrects"];
-	numOfAttempts = returnedData["attempts"];
   return returnedData;
 }
