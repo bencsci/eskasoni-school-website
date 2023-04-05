@@ -28,15 +28,14 @@ let correctAnswer, // holds the name of the current word to be used to check the
 
 // initialize(); //runs at page load because it's not in a function
 
-$(document).ready(post());
-//run post at the start to reset number of correct and total attempts to 0
-//$(document).ready(updateScoreboard());
-//runs the updatescoreboard code when the page is fully loaded
+$(document).ready(get());
+//run get at the start so that the client variables are correctly synced with the server variables. 
+$(document).ready(updateScoreboard());
+//update the scoreboard with the just-fetched variables. 
 
 function initialize() {
   //hides the start score
   document.getElementById("clickYourScore").style.display = "none";
-
   //shows the current word and volume button
   document.getElementById("volumeButton").style.display = "block";
   document.getElementById("currWord").style.display = "block";
