@@ -74,10 +74,11 @@ p {
 
 #currWord {
   font-size: calc(var(--titleSize) - 1rem);
-  position: relative;
+  /* position: relative;
   left: calc(
-    var(--titleSize) * -2.4
-  ); /* had to change in order to center the word */
+    var(--titleSize) * - 2rem
+  );  */
+  /* had to change in order to center the word */
   /*Centers it better in the presence of the volume button*/
 }
 
@@ -96,7 +97,7 @@ p {
   font-family: sans-serif;
   font-size: var(--titleSize);
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   user-select: none;
 }
 
@@ -130,4 +131,8 @@ p {
 .clickable:hover {
   cursor: pointer;
   color: magenta;
+}
+
+.row {
+  height: 16rem;
 }
