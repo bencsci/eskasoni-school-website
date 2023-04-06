@@ -1,7 +1,7 @@
 /* The purpose of this file is to use the Express API to store the score of the player
  * playing the Mi'kmaq language game on the SMU CS/Math server, so that it can 
  * be retrieved and persist across different browsers and refreshes. The score is initialized to 0/0 
- * on server reload, and if the server is turned off mid-game, the score continues operating locally until 
+ * on server reload, but if the server is turned off mid-game, the score continues operating locally until 
  * the page is refreshed or the server restarts. 
  *
  * Author: Terry Goldsmith 

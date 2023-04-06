@@ -26,10 +26,10 @@ Author: Caleb Bulmer: Final audio integration and JS integration
     />
     <!-- Make P3.css accessible to this file -->
     <link rel="stylesheet" href="./css/P3.css" />
-    <!-- make the JavaScript files available to this page, including jQuery -->
+    <!-- make jQuery functions available to this page -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<!--Make local and client0side code available to this page (server-side code need not be included since it's running on the server)-->
     <script src="./scripts/P3.js"></script>
-    <script src="./scripts/servercode.js"></script>
 	
     <!-- The sound files that play when the user clicks the volume button -->
     <audio src="./audios/aqq.wav" preload="auto" id="audio_aqq"></audio>
@@ -43,7 +43,6 @@ Author: Caleb Bulmer: Final audio integration and JS integration
     <audio src="./audios/wiktm.wav" preload="auto" id="audio_wiktm"></audio>
   </head>
 
-  <!-- Runs the code to set up and start the game on page load-->
   <body draggable="false">
     <!-- Text on top of page. Used to display the current word, or the "try again" box once the question has been attempted-->
     <div class="title" ondragover="showAllImages()">
@@ -59,7 +58,7 @@ Author: Caleb Bulmer: Final audio integration and JS integration
         <img src="./images/blank.jpg" id="currWordImg" draggable="false" />
       </div>
       <p id="restart" onclick="restartGame()" class="clickable">
-        <!-- Either the current word or the restart button will be visible, so we can put them in the same div -->
+        <!-- Either the current word or the restart button but never both will be visible, so we can put them in the same div -->
         si'owa'si?
       </p>
       <div>     

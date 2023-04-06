@@ -3,7 +3,7 @@
  * Also handles drag-and-drop functionality so that the image of the bear can persist in its 
  * dropped location and its dropped location can be checked against the correct answer. 
  * The client-side functions transmit the score to and from the server so that the score can 
- * persist between refreshed until the server is closed. 
+ * persist between page refreshes until the server is closed. 
  * 
  * Author: Baxter Madore
  * Author: Ben Le
@@ -31,7 +31,7 @@ const IMAGE_IDS = [
   "wiktm",
 ];
 
-//global constant with the url of the server for get and post request
+//global constant with the url of the server for get and post requests
 const SERVER_URL = "http://ugdev.cs.smu.ca:3737"; 
 
 /******************************global variables*/
@@ -285,7 +285,7 @@ function updateScoreboard() {
 
 /**
  * This fuction rollis a new random int to represent as the
- * new word, and displays the new word.
+ * new word, and displays the new word. It is run at teh start 
  * Ben Le: main logic and function
  *
  */
@@ -324,8 +324,8 @@ function post() {
   The purpose of this function is to GET the score JSON object from the
   server. 
   Author: Terry Goldsmith
-  Author: Baxter Madore - Modified code to work with score object
-*/
+  Author: Baxter Madore - Modified code to no longer require the endpoint myGet
+  */
 function get() {
   // attempt to GET the score back from the server.
   // if (the middleware for this endpoint ran without error)
@@ -338,8 +338,9 @@ function get() {
 /*
   The purpose of this function is to return the object which post returned.
   Since it's in a callback, it is guaranteed to run AFTER the post() request has fully
-  completed. 
-  returnedData - contains the JSON object returned by the server
+  completed, which is why it appears to just pass along data and not do anything. 
+  @param returnedData - contains the JSON object returned by the server
+  @return the same object that was passed in. 
   Author: Terry Goldsmith
 */
 function postSuccess(returnedData) {
@@ -357,9 +358,11 @@ function failFunc() {
 }
 
 /*
-  The purpose of this function is to log the JSON object received
-  from the server.
-  returnedData - contains the JSON object returned by the server
+  The purpose of this function is to change the scoreboard when the server is functional, and pass along the 
+  data from the server. 
+  @param returnedData contains the JSON object returned by the server, which holds the score in two variables
+  @return returnedData the same data that was passed in! 
+  
   Author: Terry Goldsmith
   Author: Caleb Bulmer: scoreDisplay element is updated using returnedData
 */
