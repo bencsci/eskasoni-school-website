@@ -38,12 +38,13 @@ const SERVER_URL = "http://ugdev.cs.smu.ca:3737";
 let correctAnswer, // holds the name of the current word displayed on the screen. used to check if the user's answer is correct
   imageDroppedOn, // holds the name of the image that the bear was dropped on
   allowGuesses,
+  /*allowGuesses is a boolean which states if the user is allowed to place the bear somewhere.
+  it is reset to true at the start of the round, and made false when the bear is dropped.*/
   isCorrect, // boolean to check if the user got the correct answer or not
   numOfCorrect = 0, // number of correct guesses
-  numOfAttempts = 0, //number of total attempts
+  numOfAttempts = 0; //number of total attempts
 
-/*allowGuesses is a boolean which states if the user is allowed to place the bear somewhere.
-  it is reset to true at the start of the round, and made false when the bear is dropped.*/
+
 
 $(document).ready(get());
 //run get on page load so that the client variables are correctly synced with the server variables. 
@@ -285,7 +286,8 @@ function updateScoreboard() {
 
 /**
  * This fuction rollis a new random int to represent as the
- * new word, and displays the new word. It is run at teh start 
+ * new word, and displays the new word. It is run at the start of a round, after the user clicks
+ * the "click your score" button
  * Ben Le: main logic and function
  *
  */
