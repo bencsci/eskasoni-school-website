@@ -6,7 +6,6 @@
  *
  * Author: Terry Goldsmith 
  * Author: Baxter Madore
- * Author: Ben Le
  *
 */
 
