@@ -166,7 +166,6 @@ function drop(event) {
   // completely hide the image so when the bear appears it doesn't stretch
   document.getElementById(event.target.id).style.display = "none";
   imageDroppedOn = event.target.id;
-  console.log("ImgDroppedON: " + imageDroppedOn);
 
   // makes the hidden bear behind the photo visible
   document.getElementById(event.target.id + "Bear").style.display = "block";
@@ -361,7 +360,7 @@ function failFunc() {
 
 /*
   The purpose of this function is to change the scoreboard when the server is functional, and pass along the 
-  data from the server. 
+  data from the server, while updating the local variables if possible. 
   @param returnedData contains the JSON object returned by the server, which holds the score in two variables
   @return returnedData the same data that was passed in! 
   
@@ -371,5 +370,7 @@ function failFunc() {
 function getSuccess(returnedData) {
   document.getElementById("scoreDisplay").innerHTML =
     returnedData["corrects"] + "/" + returnedData["attempts"];
+	numOfCorrect = returnedData["corrects"];
+	numOfAttempts = returnedData["attempts"];
   return returnedData;
 }
